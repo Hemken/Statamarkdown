@@ -26,6 +26,19 @@
                 }
             }
         }
+    } else if (Sys.info()["sysname"]=="Darwin") {
+        stataexe <- NULL
+        dv <- "/Applications/Stata/"
+        if (dir.exists(d)) {
+            for (f in c("Stata", "StataSE", "StataMP")) {
+                dvf <- paste(paste(dv, f, sep="/"), "app", sep=".")
+                if (file.exists(dvf)) {
+                    stataexe <- dvf
+                    packageStartupMessage("Stata found at ", stataexe)
+                    break
+                }
+            }
+        }
     } else {
         packageStartupMessage("Specify the location of your Stata executable.")
     }
