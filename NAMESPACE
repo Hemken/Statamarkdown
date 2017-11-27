@@ -1,4 +1,4 @@
 # Export funtions called
 export(stata_collectcode)
-# export(stata_output)
+export(stataoutputhook)
 importFrom("utils", "tail")

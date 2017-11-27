@@ -47,6 +47,9 @@
                           error=TRUE, comment="")
     
     stata_collectcode()
+    
     # stataoutput_hookset()
+    assign("hook_orig", knitr::knit_hooks$get("output"), pos=parent.frame())
+    knitr::knit_hooks$set(output = Statamarkdown::stataoutputhook)
     
 }
