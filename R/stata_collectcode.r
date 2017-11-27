@@ -5,7 +5,7 @@ stata_collectcode <- function() {
   }
 knitr::knit_hooks$set(collectcode = function(before, options, envir) {
     if (!before) {
-        if (options$engine == “stata“) {
+        if (options$engine == "stata") {
             autoexec <- file("profile.do", open="at")
             writeLines(options$code, autoexec)
             close(autoexec)
