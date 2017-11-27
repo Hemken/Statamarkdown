@@ -13,5 +13,5 @@ stataoutputhook <- function(x, options) {
     firsttext <- min(grep("[[:alnum:]]", y))
     if (firsttext != Inf) {y <- y[-(1:(firsttext-1))]}
     # Now treat the result as regular output
-    hook_output(y, options)
+    hook_orig(y, options)
 }

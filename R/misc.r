@@ -1,7 +1,7 @@
 
-# .onLoad <- function (libname, pkgname) {
-#     utils::globalVariables("hook_orig") # to suppress CHECK note
-# }
+.onLoad <- function (libname, pkgname) {
+    utils::globalVariables("hook_orig") # to suppress CHECK note
+}
 
 .onAttach <- function (libname, pkgname) {
     if (Sys.info()["sysname"]=="Windows"){
@@ -13,7 +13,7 @@
                     dv <- paste(d,paste0("Stata",v), sep="/")
                     if (dir.exists(dv)) {
                         #setwd(dv)
-                        for (f in c("Stata", "StataSE", "StataMP", 
+                        for (f in c("Stata", "StataSE", "StataMP",
                                     "Stata-64", "StataSE-64", "StataMP-64")) {
                             dvf <- paste(paste(dv, f, sep="/"), "exe", sep=".")
                             if (file.exists(dvf)) {
@@ -42,14 +42,15 @@
     } else {
         packageStartupMessage("Specify the location of your Stata executable.")
     }
-    
-    knitr::opts_chunk$set(engine="stata", engine.path=stataexe, 
+
+    knitr::opts_chunk$set(engine="stata", engine.path=stataexe,
                           error=TRUE, comment="")
-    
+
     stata_collectcode()
-    
+
     # stataoutput_hookset()
-    assign("hook_orig", knitr::knit_hooks$get("output"), pos=parent.frame())
+    assign("hook_orig", knitr::knit_hooks$get("output"), envir=.GlobalEnv)
+    # hook_orig <<- knitr::knit_hooks$get("output")
     knitr::knit_hooks$set(output = Statamarkdown::stataoutputhook)
-    
+
 }
