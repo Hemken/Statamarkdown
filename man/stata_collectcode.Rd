@@ -8,6 +8,9 @@ This wrapper function calls \code{knitr::knit_hooks$set()} to
 define a chunk hook.  When the chunk hook is later invoked, this
 writes the contents of the current chunk to the end of a Stata
 \code{profile.do} file.
+
+This function is normally invoked when the Statamarkdown
+package is loaded - you should not need to invoke it.
 }
 \usage{
 stata_collectcode()
@@ -20,7 +23,6 @@ from a prevous chunk, code needs to be repeated and re-evaluated.
 This function creates a knitr chunk hook that signals when one
 chunk's code should be saved for re-use later.  The code is
 temporarily placed in a Stata \code{profile.do} file.
-
 }
 \note{
 If there is already an \file{profile.do} in the directory where
@@ -49,7 +51,6 @@ output: html_document
 # In a first code chunk, set up with
 ```{r}
 require(Statamarkdown)
-stata_collectcode()
 
 stataexe <- "C:/Program Files (x86)/Stata15/StataSE-64.exe"
 ```

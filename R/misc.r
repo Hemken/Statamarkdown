@@ -44,13 +44,11 @@
     }
 
     knitr::opts_chunk$set(engine="stata", engine.path=stataexe,
-                          error=TRUE, comment="")
+                          error=TRUE, cleanlog=TRUE, comment="")
 
     stata_collectcode()
 
-    # stataoutput_hookset()
-    assign("hook_orig", knitr::knit_hooks$get("output"), envir=.GlobalEnv)
-    # hook_orig <<- knitr::knit_hooks$get("output")
+    assign("hook_orig", knitr::knit_hooks$get("output"), pos=1)
     knitr::knit_hooks$set(output = Statamarkdown::stataoutputhook)
 
 }

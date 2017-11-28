@@ -17,8 +17,13 @@ stataoutputhook(x, options)
 }
 
 \details{
-In the future more choice and nuance could be added here.  
-The user should not need to invoke this directly.
+To disable removing Stata commands from the output, use
+chunk option \code{cleanlog=FALSE}.
+
+In the future more choice and nuance could be added here.
+
+This function is normally used when the Statamarkdown package
+is loaded, the user should not need to invoke this directly.
 }
 \value{
 This returns a call to \code{knitr::engine_output}.
@@ -35,22 +40,26 @@ Doug Hemken
 \dontrun{
 indoc <- '
 ---
-title: "Basic SASmarkdown Doc"
+title: "Basic Statamarkdown Doc"
 author: "Doug Hemken"
 output: html_document
 ---
 # In a first code chunk, set up with
 ```{r}
-require(SASmarkdown)
-sas_enginesetup(sashtml=sashtml)
+require(Statamarkdown)
 
-sasexe <- "C:/Program Files/SASHome/SASFoundation/9.4/sas.exe"
-sasopts <- "-nosplash -ls 75"
+stataexe <- "C:/Program Files (x86)/Stata15/StataSE-64.exe"
 ```
-# Then set up SAS code chunks with
-```{r, engine="sashtml", engine.path=sasexe, engine.opts=sasopts}
-proc means data=sashelp.class;
-run;
+# Then mark Stata code chunks with
+```{r, engine="stata", engine.path=stataexe, collectcode=TRUE}
+sysuse auto, clear
+generate gpm = 1/mpg
+summarize price gpm
+```
+
+# A later chunk that depends on the first, with unaltered output.
+```{r, engine="stata", engine.path=stataexe, echo=FALSE, cleanlog=FALSE}
+regress price gpm
 ```
 '
 knitr::knit(text=indoc, output="test.md")
