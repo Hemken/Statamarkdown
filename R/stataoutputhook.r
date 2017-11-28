@@ -1,5 +1,6 @@
 stataoutputhook <- function(x, options) {
-    if (length(options$cleanlog)==0 | options$cleanlog!=FALSE) {
+    if (options$engine=="stata" &
+        (length(options$cleanlog)==0 | options$cleanlog!=FALSE)) {
       y <- strsplit(x, "\n")[[1]]
       # Remove command echo in Stata log
       commandlines <- grep("^\\.", y)
