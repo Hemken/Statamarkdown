@@ -1,5 +1,6 @@
 \name{stataoutputhook}
 \alias{stataoutputhook}
+\alias{hook_orig}
 \title{
 A function to provide cleaner output for knitr's Stata engine.
 }
