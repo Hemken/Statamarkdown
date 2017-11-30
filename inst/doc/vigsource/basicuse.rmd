@@ -1,0 +1,63 @@
+---
+title: "Basic Use of Statamarkdown"
+author: "Doug Hemken"
+date: "`r format(Sys.Date(), '%b %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic Use of Statamarkdown}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r backtick, echo=FALSE, results="hide"}
+backtick <- "`"
+```
+This discussion assumes you already have a basic understanding
+of Markdown for document formatting, Rmarkdown to include executable
+code in a document, and Stata to write the code.
+
+## First attach the `Statamarkdown` library
+Your first code chunk will look something like this:
+
+    `r backtick```{r library}
+    library(Statamarkdown)
+    `r backtick```
+    
+This will either report that Stata was found, or
+that you need to specify it\'s location yourself.
+```{r library}
+library(Statamarkdown)
+```
+
+You can hide all of this so it does not appear in your
+final document by using the `echo=FALSE, message=FALSE`
+chunk options.
+
+## If Stata was not found
+You will need to specify this yourself, as additional lines in
+the \"library\" code block.
+```{r stataexe, engine="R"}
+stataexe <- "C:/Program Files (x86)/Stata15/StataSE-64.exe"
+knitr::opts_chunk$set(engine="stata", engine.path=stataexe)
+```
+
+If you do not know where to find you Stata executable (app),
+open Stata and issue the command `sysdir`.  The line labeled 
+`STATA: ` is the folder where your Stata executable is located. 
+You can browse there with your computer\'s file explorer to 
+see the actual file name of the Stata executable, which varies
+by operating system, Stata version, and Stata flavor.
+
+## Then set up Stata code chunks.
+A simple code chunk in Rmarkdown might look like:
+
+    `r backtick```{r example1}
+    sysuse auto
+    summarize
+    `r backtick```
+
+And in your document this would produce:
+```{r example1}
+sysuse auto
+summarize
+```
