@@ -4,7 +4,7 @@ author: "Doug Hemken"
 date: "`r format(Sys.Date(), '%b %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Basic Use of Statamarkdown}
+  %\VignetteIndexEntry{Linking Stata code blocks}
   %\VignetteEngine{knitr::rmarkdown_notangle}
   \usepackage[utf8]{inputenc}
 ---
@@ -27,6 +27,8 @@ subsequent chunk.
 If necessary, also specify the Stata executable location.
 ```{r stata_setup}
 library(Statamarkdown)
+stataexe <- find_stata()
+knitr::opts_chunk$set(engine="stata", engine.path=stataexe)
 ```
 
 ##An Example

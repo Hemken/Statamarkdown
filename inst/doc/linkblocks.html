@@ -69,7 +69,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Linking Code Blocks</h1>
 <h4 class="author"><em>Doug Hemken</em></h4>
-<h4 class="date"><em>Nov 2017</em></h4>
+<h4 class="date"><em>Dec 2017</em></h4>
 
 
 
@@ -78,9 +78,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="setup-stata-engine" class="section level2">
 <h2>Setup Stata Engine</h2>
 <p>If necessary, also specify the Stata executable location.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Statamarkdown)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Statamarkdown)
+stataexe &lt;-<span class="st"> </span><span class="kw">find_stata</span>()</code></pre></div>
 <pre><code>## Stata found at C:/Program Files (x86)/Stata14/StataMP-64.exe</code></pre>
 <pre><code>## Stata found at C:/Program Files (x86)/Stata15/StataSE-64.exe</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">engine=</span><span class="st">&quot;stata&quot;</span>, <span class="dt">engine.path=</span>stataexe)</code></pre></div>
 </div>
 <div id="an-example" class="section level2">
 <h2>An Example</h2>

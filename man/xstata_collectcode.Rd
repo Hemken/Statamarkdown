@@ -39,9 +39,9 @@ Doug Hemken
 \code{\link{Statamarkdown-package}}
 }
 \examples{
+\dontrun{
 stata_collectcode()
 
-\dontrun{
 indoc <- '
 ---
 title: "Basic Statamarkdown Doc"
