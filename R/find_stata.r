@@ -22,7 +22,7 @@ find_stata <- function() {
 } else if (Sys.info()["sysname"]=="Darwin") {
   stataexe <- NULL
   dv <- "/Applications/Stata/"
-  if (dir.exists(d)) {
+  if (dir.exists(dv)) {
     for (f in c("Stata", "StataSE", "StataMP")) {
       dvf <- paste(paste(dv, f, sep="/"), "app", sep=".")
       if (file.exists(dvf)) {

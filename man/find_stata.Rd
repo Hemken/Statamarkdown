@@ -33,7 +33,6 @@ output: html_document
 # In a first code chunk, set up with
 ```{r}
 library(Statamarkdown)
-
 stataexe <- find_stata()
 ```
 # Then mark Stata code chunks with
