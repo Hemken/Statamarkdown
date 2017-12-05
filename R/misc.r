@@ -11,7 +11,7 @@
   stata_collectcode()
 
   assign("hook_orig", knitr::knit_hooks$get("output"), pos=2)
-    # knitr::knit_hooks$set(output = Statamarkdown::stataoutputhook)
+  # knitr::knit_hooks$set(output = Statamarkdown::stataoutputhook)
   knitr::knit_hooks$set(output = stataoutputhook)
 
 }

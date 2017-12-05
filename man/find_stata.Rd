@@ -22,8 +22,6 @@ Doug Hemken
 }
 \examples{
 \dontrun{
-stata_collectcode()
-
 indoc <- '
 ---
 title: "Basic Statamarkdown Doc"
@@ -47,7 +45,8 @@ summarize price gpm
 regress price gpm
 ```
 '
-knitr::knit(text=indoc, output="test.md")
-rmarkdown::render("test.md")
+fn <- file.path(tempdir(), "test.md")
+knitr::knit(text=indoc, output=fn)
+rmarkdown::render(fn)
 }
 }
