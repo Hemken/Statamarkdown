@@ -1,5 +1,5 @@
 find_stata <- function() {
-  if (Sys.info()["sysname"]=="Windows"){
+  if (.Platform$OS.type == "windows"){
   stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
     if (dir.exists(d)) {
@@ -32,6 +32,8 @@ find_stata <- function() {
       }
     }
   }
+} else if (.Platform$OS.type == "unix") {
+    stataexe <- system2("which", "stata", stdout=TRUE)
 } else {
   message("Stata executable not found.\n Specify the location of your Stata executable.")
 }

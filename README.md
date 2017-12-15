@@ -15,5 +15,3 @@ help(package="Statamarkdown")
 If the package was installed, you should see an R Help page..
 
 If you would like to contribute to this project, please "fork" it on Github and then clone it back to your working environment.  Make your changes and enhancements, push them back to your Github repository, then initiate a "pull" request.
-
-This procedure may seem elaborate, but this allows us each to keep the parts we like, even if we should disagree!

@@ -7,6 +7,9 @@
 \title{Settings and functions to extend the knitr Stata engine.}
 
 \description{
+To use these functions and settings, attach the \code{Statamarkdown}
+library from \strong{within} the document to be \code{knit}.
+
 Using the "Stata" language engine in \code{knitr} has a number of limitations.
 Each Stata code chunk is run as a separate batch file, and source
 code is part of the output returned to the document being knit.
