@@ -6,17 +6,17 @@ stata_engine <- function (options)
     } else {
       f <- basename(paste0(options$label, ".do"))
     }
-    logf = sub("[.]do$", ".log", f)
+    writeLines(options$code, f)
 
+    logf = sub("[.]do$", ".log", f)
+    if (is.null(options$savedo) || options$savedo==FALSE)
+      on.exit(unlink(c(logf)), add = TRUE)
     paste(switch(Sys.info()[["sysname"]], Windows = "/q /e do",
                  Darwin = "-q -e do", Linux = "-q -b do", "-q -b do"),
           shQuote(normalizePath(f)))
-    if (is.null(options$savedo) || options$savedo==FALSE)
-      on.exit(unlink(c(logf)), add = TRUE)
-    paste(f, options$doargs)
   }
-
-  code = paste(options$engine.opts, code)
+  code = paste(options$engine.opts, code, options$doargs)
+print(code)
   # cmd = knitr:::get_engine_path(options$engine.path, options$engine)
   cmd = options$engine.path
   out = if (options$eval) {
