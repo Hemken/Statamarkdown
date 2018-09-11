@@ -1,7 +1,7 @@
 Package: Statamarkdown
 Type: Package
-Version: 0.2.6
-Date: 2017-12-15
+Version: 0.3.0
+Date: 2018-09-11
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 Imports: knitr
@@ -12,4 +12,4 @@ Maintainer: Doug Hemken <dehemken@wisc.edu>
 License: MIT + file LICENSE
 BugReports: http://github.com/Hemken/Statamarkdown/issues
 Encoding: UTF-8
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
