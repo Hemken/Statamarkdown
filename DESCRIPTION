@@ -13,3 +13,6 @@ License: MIT + file LICENSE
 BugReports: http://github.com/Hemken/Statamarkdown/issues
 Encoding: UTF-8
 RoxygenNote: 6.1.1
+VignetteBuilder: knitr
+Suggests: 
+    rmarkdown
