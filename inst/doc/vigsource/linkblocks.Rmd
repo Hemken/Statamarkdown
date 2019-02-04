@@ -4,14 +4,10 @@ author: "Doug Hemken"
 date: "`r format(Sys.Date(), '%b %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Linking Stata code blocks}
-  %\VignetteEngine{knitr::rmarkdown_notangle}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Linking Code Blocks}
+  %\VignetteEncoding{UTF-8}
 ---
-
-```{r backtick, echo=FALSE, results="hide"}
-backtick <- "`"
-```
 
 Each code chunk in your dynamic markdown document runs
 as a separate batch file in Stata.  This means that
@@ -24,11 +20,11 @@ Collected code accumulates, and runs silently before each
 subsequent chunk.
 
 ## Setup Stata Engine
-If necessary, also specify the Stata executable location.
+(If necessary, manually specify the Stata executable location.)
 ```{r stata_setup}
 library(Statamarkdown)
 stataexe <- find_stata()
-knitr::opts_chunk$set(engine="stata", engine.path=stataexe)
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
 ##An Example
@@ -39,14 +35,14 @@ the new variable.
 ###First code block:
 In the first code chunk, use the `collectcode` option.
 
-    `r backtick```{r first, collectcode=TRUE}
+    ```{stata first-Stata, collectcode=TRUE}`r ''`
     sysuse auto, clear
     generate gpm = 1/mpg
     summarize price gpm
-    `r backtick```
+    ```
 
 Which looks like this in your document:
-```{r first-Stata, collectcode=TRUE}
+```{stata first-Stata, collectcode=TRUE}
 sysuse auto, clear
 generate gpm = 1/mpg
 summarize price gpm
@@ -55,12 +51,12 @@ summarize price gpm
 ##Second code block:
 Then you can use the new variable in a later code chunk.
 
-    `r backtick```{r second}
+    ```{stata second-Stata}`r ''`
     regress price gpm
-    `r backtick```
+    ```
     
 Which looks like this in your document:
-```{r second-Stata}
+```{stata second-Stata}
 regress price gpm
 ```
 

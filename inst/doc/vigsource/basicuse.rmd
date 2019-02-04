@@ -4,14 +4,11 @@ author: "Doug Hemken"
 date: "`r format(Sys.Date(), '%b %Y')`"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Basic Use of Statamarkdown}
-  %\VignetteEngine{knitr::rmarkdown_notangle}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r backtick, echo=FALSE, results="hide"}
-backtick <- "`"
-```
 This discussion assumes you already have a basic understanding
 of Markdown for document formatting, Rmarkdown to include executable
 code in a document, and Stata to write the code.
@@ -19,16 +16,18 @@ code in a document, and Stata to write the code.
 ## First attach the `Statamarkdown` library
 Your first code chunk will look something like this:
 
-    `r backtick```{r library}
+    ```{r library}`r ''`
     library(Statamarkdown)
-    sasexe <- find_stata()
-    `r backtick```
+    stataexe <- find_stata()
+    knitr::opts_chunk$set(engine.path = list(stata = stataexe))
+    ```
     
 This will either report that Stata was found, or
 that you need to specify it\'s location yourself.
-```{r library}
+```{r library, echo=FALSE, message=FALSE}
 library(Statamarkdown)
-sasexe <- find_stata()
+stataexe <- find_stata()
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
 You can hide all of this so it does not appear in your
@@ -36,9 +35,9 @@ final document by using the `echo=FALSE, message=FALSE`
 chunk options.
 
 ## If Stata was not found
-You will need to specify this yourself, as additional lines in
+You will need to specify this yourself, as an alternative line in
 the \"library\" code block.
-```{r stataexe, engine="R"}
+```{r stataexe, eval=FALSE}
 stataexe <- "C:/Program Files (x86)/Stata15/StataSE-64.exe"
 ```
 
@@ -50,21 +49,21 @@ see the actual file name of the Stata executable, which varies
 by operating system, Stata version, and Stata flavor.
 
 ## Set the Engine Path
-Then in either case you should set the Stata executable
+Then in any case you should set the Stata executable
 path as a default chunk option.
-```{r enginepath, engine="R"}
-knitr::opts_chunk$set(engine="stata", engine.path=stataexe)
+```{r enginepath}
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 ## Then set up Stata code chunks.
 A simple code chunk in Rmarkdown might look like:
 
-    `r backtick```{r example1}
+    ```{stata example}`r ''`
     sysuse auto
     summarize
-    `r backtick```
+    ```
 
 And in your document this would produce:
-```{r example1}
+```{stata example}
 sysuse auto
 summarize
 ```
