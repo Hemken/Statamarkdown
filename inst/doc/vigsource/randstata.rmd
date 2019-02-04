@@ -1,0 +1,51 @@
+---
+title: "Combining Stata and R"
+author: "Doug Hemken"
+date: "`r format(Sys.Date(), '%b %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Combining Stata and R}
+  %\VignetteEncoding{UTF-8}
+---
+
+One of the virtues of processing your dynamic documents through R
+is that you can use more than one programming language in a single
+document.  Many of us are multi-lingual, and it is often quicker 
+and easier to execute part of a project in one language, while 
+completing your work in another.  This is especially common when
+you are in the process of learning a new language, or if part of
+your work involves a specialized language with limited capabilities.
+
+## Some Setup for Stata
+Some initial set up is required to use Stata to process commands. 
+You would include an initial fenced code block (\"code chunk\")
+to do this.  Use the `echo=FALSE, message=FALSE`
+chunk options to hide this from your readers.
+
+````
+```{r Statasetup}`r ''`
+library(Statamarkdown)
+stataexe <- find_stata()
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
+```
+````
+
+```{r Statasetup, echo=FALSE, message=FALSE}
+library(Statamarkdown)
+stataexe <- find_stata()
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
+```
+
+## Using Stata 
+```{stata}
+sysuse auto
+regress mpg weight
+```
+
+## Using R
+
+```{r cars}
+summary(lm(mpg ~ wt, data=mtcars))
+```
+
