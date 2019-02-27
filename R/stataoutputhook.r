@@ -7,7 +7,11 @@ stataoutputhook <- function(x, options) {
       if (length(commandlines)>0) {y <- y[-(grep("^\\.", y))]}
       # Some commands have a leading space?
       if (length(grep("^[[:space:]*]\\.", y))>0) {
-          y <- y[-(grep("^[[:space:]*]\\.", y))]
+        y <- y[-(grep("^[[:space:]*]\\.", y))]
+      }
+      # continuations of command lines
+      if (length(grep("^>", y))>0) {
+        y <- y[-(grep("^>", y))]
       }
       # Ensure a trailing blank line
       if (length(y)>0 && y[length(y)] != "") { y <- c(y, "") }
