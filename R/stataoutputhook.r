@@ -1,4 +1,5 @@
 stataoutputhook <- function(x, options) {
+    message(paste(options$engine, "output from", options$label))
     if (options$engine=="stata" &
         (length(options$cleanlog)==0 | options$cleanlog!=FALSE)) {
       y <- strsplit(x, "\n")[[1]]
