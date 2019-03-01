@@ -37,13 +37,30 @@ stataexe <- find_stata()
 knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
+Then, to switch languages, you just indicate the language in
+the code fence.
+
 ## Using Stata 
+
+````
+```{stata}`r ''`
+sysuse auto
+regress mpg weight
+```
+````
+
 ```{stata}
 sysuse auto
 regress mpg weight
 ```
 
 ## Using R
+
+````
+```{r cars}`r ''`
+summary(lm(mpg ~ wt, data=mtcars))
+```
+````
 
 ```{r cars}
 summary(lm(mpg ~ wt, data=mtcars))

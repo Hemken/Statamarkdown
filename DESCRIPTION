@@ -1,7 +1,7 @@
 Package: Statamarkdown
 Type: Package
-Version: 0.3.2
-Date: 2019-02-27
+Version: 0.3.3
+Date: 2019-03-01
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 Imports: knitr

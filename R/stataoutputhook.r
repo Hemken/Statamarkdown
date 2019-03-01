@@ -4,15 +4,23 @@ stataoutputhook <- function(x, options) {
         (length(options$cleanlog)==0 | options$cleanlog!=FALSE)) {
       y <- strsplit(x, "\n")[[1]]
       # Remove command echo in Stata log
-      commandlines <- grep("^\\.", y)
-      if (length(commandlines)>0) {y <- y[-(grep("^\\.", y))]}
+      commandlines <- grep("^\\.[[:space:]]", y)
+      if (length(commandlines)>0) {
+        loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
+        commandlines <- c(commandlines, loopcommands)
+      }
+      continuations <- grep("^>[[:space:]]", y)
+      if (length(commandlines)>0 && length(continuations)>0) {
+        for (i in 1:length(continuations)) {
+          if ((continuations[i]-1) %in% commandlines) {
+            commandlines <- c(commandlines, continuations[i])
+          }
+        }
+      }
+      if (length(commandlines)>0) {y <- y[-(commandlines)]}
       # Some commands have a leading space?
       if (length(grep("^[[:space:]*]\\.", y))>0) {
         y <- y[-(grep("^[[:space:]*]\\.", y))]
-      }
-      # continuations of command lines
-      if (length(grep("^>", y))>0) {
-        y <- y[-(grep("^>", y))]
       }
       # Ensure a trailing blank line
       if (length(y)>0 && y[length(y)] != "") { y <- c(y, "") }
