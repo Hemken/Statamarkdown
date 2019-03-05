@@ -1,8 +1,9 @@
 stata_collectcode <- function() {
-  if (file.exists(file.path(dirname(find_stata()), "sysprofile.do"))) {
+  # Message when Statamarkdown loads
+  if (file.exists(file.path(dirname(find_stata(message=FALSE)), "sysprofile.do"))) {
     message("Found a 'sysprofile.do'")
   }
-  if (file.exists(file.path(dirname(find_stata()), "profile.do"))) {
+  if (file.exists(file.path(dirname(find_stata(message=FALSE)), "profile.do"))) {
     message("Found a 'profile.do' in the STATA executable directory.")
     message("  This prevents 'collectcode' from working.")
     message("  Please rename this 'sysprofile.do'.")
@@ -14,10 +15,11 @@ stata_collectcode <- function() {
   else {
     oprofile <- NULL
   }
+  # Hook for code processing
   knitr::knit_hooks$set(collectcode = function(before, options, envir) {
     if (!before) {
         if (options$engine == "stata") {
-          if (file.exists(file.path(dirname(options$engine.path)), "profile.do")) {
+          if (file.exists(file.path(dirname(options$engine.path$stata), "profile.do"))) {
             message("Found a 'profile.do' in the STATA executable directory.")
             message("  This prevents 'collectcode' from working properly.")
             message("  Please rename this 'sysprofile.do'.")

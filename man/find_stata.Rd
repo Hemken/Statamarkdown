@@ -12,7 +12,11 @@ correct location yourself.
 
 }
 \usage{
-find_stata()
+find_stata(message=TRUE)
+}
+\arguments{
+\item{message}{(logical) Whether or not to print a message
+when Stata is found.}
 }
 \value{
 A character string with the path and name of the Stata executable.
