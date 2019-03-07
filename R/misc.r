@@ -7,7 +7,7 @@
 .onAttach <- function (libname, pkgname) {
   if (!requireNamespace("knitr")) stop("Requires knitr package.")
   knitr::knit_engines$set(stata=stata_engine)
-  packageStartupMessage("Stata engine redefined")
+#  packageStartupMessage("Stata engine redefined")
 
   stataexe <- find_stata()
   if (!is.null(stataexe)) {
@@ -15,14 +15,14 @@
   }
   knitr::opts_chunk$set(#engine="stata",
                         error=TRUE, cleanlog=TRUE, comment=NA)
-  packageStartupMessage("Chunk options optimized")
+#  packageStartupMessage("Chunk options optimized")
 
   stata_collectcode()
-  packageStartupMessage("collectcode option defined")
+#  packageStartupMessage("collectcode option defined")
 
   assign("hook_orig", knitr::knit_hooks$get("output"), pos=2)
   knitr::knit_hooks$set(output = stataoutputhook)
-  packageStartupMessage("output for Stata redefined")
+#  packageStartupMessage("output for Stata redefined")
 
   packageStartupMessage("The 'stata' engine is ready to use.")
 

@@ -15,7 +15,7 @@ stata_collectcode <- function() {
     assign("oprofile", readLines("profile.do"), pos=2)
 #    oprofile <- readLines("profile.do")
     message("Found an existing 'profile.do'")
-    message(paste(oprofile, "\n"))
+    message(paste("  ", oprofile, "\n"))
   }
   else {
     oprofile <- NULL

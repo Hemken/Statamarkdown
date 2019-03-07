@@ -3,6 +3,10 @@ stataoutputhook <- function(x, options) {
     if (options$engine=="stata" &
         (length(options$cleanlog)==0 | options$cleanlog!=FALSE)) {
       y <- strsplit(x, "\n")[[1]]
+      # Remove "running profile.do"
+      running <- grep("^\\.?running[[:space:]]", y)
+      if (length(running)>0) {y <- y[-(running)]}
+
       # Remove command echo in Stata log
       commandlines <- grep("^\\.[[:space:]]", y)
       if (length(commandlines)>0) {
@@ -18,15 +22,18 @@ stataoutputhook <- function(x, options) {
         }
       }
       if (length(commandlines)>0) {y <- y[-(commandlines)]}
+
       # Some commands have a leading space?
       if (length(grep("^[[:space:]*]\\.", y))>0) {
         y <- y[-(grep("^[[:space:]*]\\.", y))]
       }
+
       # Ensure a trailing blank line
       if (length(y)>0 && y[length(y)] != "") { y <- c(y, "") }
+
       # Remove blank lines at the top of the Stata log
-      firsttext <- min(grep("[[:alnum:]]", y))
-      if (firsttext != Inf) {y <- y[-(1:(firsttext-1))]}
+      firsttext <- min(grep("[()[:alnum:]]", y))
+      if (firsttext != Inf && firsttext != 1) {y <- y[-(1:(firsttext-1))]}
     } else {
       y <- x
     }
