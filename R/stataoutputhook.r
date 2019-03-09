@@ -3,9 +3,9 @@ stataoutputhook <- function(x, options) {
     if (options$engine=="stata") {
       y <- strsplit(x, "\n")[[1]]
 #      print(y)
-      # Remove "running profile.do"
-      running <- grep("^\\.?[[:space:]]?running[[:space:]].*profile.do", y)
-      if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?running[[:space:]].*profile.do","", y[running])}
+      # # Remove "running profile.do"
+      # running <- grep("^\\.?[[:space:]]?running[[:space:]].*profile.do", y)
+      # if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?running[[:space:]].*profile.do","", y[running])}
 #      print("running removed")
 #      print(y)
       # Remove command echo in Stata log
