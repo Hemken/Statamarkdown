@@ -1,11 +1,11 @@
 \name{stata_engine}
 \alias{stata_engine}
-\title{Define a Stata engines for knitr}
+\title{Define a Stata engine for knitr}
 \description{
 This function creates a modified Stata engine.
 
 Set up once per session (i.e. document).  Ordinarily this is run
-automatically when \code{Statamarkdown} is loaded.
+automatically when \pkg{Statamarkdown} is loaded.
 }
 \usage{
 stata_engine(options)
@@ -13,7 +13,7 @@ stata_engine(options)
 \arguments{
 \item{options}{\code{options} are passed to the engine
 function when it
-is actually invoked within \code{knitr}.}
+is actually invoked within \pkg{knitr}.}
 }
 
 \details{
@@ -32,7 +32,7 @@ workhorse function that actually calls Stata and returns output.
 
 \value{
 The language engine function returns Stata code
-and output internally to \code{knitr}.
+and output internally to \pkg{knitr}.
 
 }
 \author{
