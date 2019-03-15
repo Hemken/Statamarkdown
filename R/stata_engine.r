@@ -34,6 +34,6 @@ stata_engine <- function (options)
     stop(paste(out, collapse = "\n"))
   if (options$eval && options$engine == "stata" && file.exists(logf))
     out = c(readLines(logf), out)
-  stataengine_output(options, options$code, out)
-  # knitr::engine_output(options, options$code, out)
+#  stataengine_output(options, options$code, out)
+  knitr::engine_output(options, options$code, out)
 }

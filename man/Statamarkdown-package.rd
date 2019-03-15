@@ -55,7 +55,7 @@ the code in the code block.  Use \code{eval=FALSE} to show
 code to the reader without having it evaluated.
 
 Selective evaluation by specifying a numeric vector (an option
-for R code blocks) does \emph(not) work for Stata.
+for R code blocks) does \emph{not} work for Stata.
 }
 \subsection{include: (logical)}{Whether or not any trace
 of this code block appears in your document.  Use \code{include=FALSE}

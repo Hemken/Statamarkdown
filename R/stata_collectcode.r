@@ -24,7 +24,7 @@ stata_collectcode <- function() {
   knitr::knit_hooks$set(collectcode = function(before, options, envir) {
     if (!before) {
         if (options$engine == "stata") {
-          print(options$engine.path$stata)
+#          print(options$engine.path$stata)
           if (file.exists(file.path(dirname(options$engine.path$stata), "profile.do"))) {
             message("Found a 'profile.do' in the STATA executable directory.")
             message("  This prevents 'collectcode' from working properly.")
