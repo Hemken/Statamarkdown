@@ -4,7 +4,7 @@ Version: 0.3.5
 Date: 2019-03-09
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
-Imports: knitr
+Imports: knitr(>=1.15)
 SystemRequirements: Stata
 Authors@R: person("Doug", "Hemken", email="dehemken@wisc.edu", 
         role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison")
@@ -14,5 +14,4 @@ BugReports: http://github.com/Hemken/Statamarkdown/issues
 Encoding: UTF-8
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-Suggests: 
-    rmarkdown
+Suggests: rmarkdown
