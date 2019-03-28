@@ -16,10 +16,21 @@ stata_engine <- function (options)
                  Darwin = "-q -e do", Linux = "-q -b do", "-q -b do"),
           shQuote(normalizePath(f)))
   }
-  code = paste(options$engine.opts, code, options$doargs)
+
+  if (is.list(options$engine.opts)) {
+    code = paste(options$engine.opts[[options$engine]], code, options$doargs)
+  } else { # backwards compatability
+    code = paste(options$engine.opts, code, options$doargs)
+  }
 # print(code)
-  # cmd = knitr:::get_engine_path(options$engine.path, options$engine)
+
   cmd = options$engine.path
+  if (is.list(options$engine.path)) {
+    cmd = options$engine.path[[options$engine]]
+  } else { # backwards compatability
+    cmd = options$engine.path
+  }
+
   out = if (options$eval) {
     message("running: ", cmd, " ", code)
     tryCatch(system2(cmd, code, stdout = TRUE, stderr = TRUE,
