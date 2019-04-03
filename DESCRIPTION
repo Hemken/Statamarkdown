@@ -4,7 +4,7 @@ Version: 0.3.7
 Date: 2019-04-03
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
-Imports: knitr(>= 1.15)
+Imports: knitr(>= 1.15), xfun(>= 0.4)
 SystemRequirements: Stata
 Authors@R: person("Doug", "Hemken", email="dehemken@wisc.edu", 
         role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison")
