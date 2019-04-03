@@ -1,5 +1,6 @@
 # Export functions
 export(find_stata)
 export(stata_engine)
+export(spinstata)
 # export(stata_collectcode)
 # export(stataoutputhook)
