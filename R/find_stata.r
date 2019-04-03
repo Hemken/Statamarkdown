@@ -19,24 +19,25 @@ find_stata <- function(message=TRUE) {
       }
     }
   }
-} else if (Sys.info()["sysname"]=="Darwin") {
-  stataexe <- NULL
-  dv <- "/Applications/Stata/"
-  if (dir.exists(dv)) {
-    for (f in c("Stata", "StataSE", "StataMP")) {
-      dvf <- paste(paste(dv, f, sep="/"), "app", sep=".")
-      if (file.exists(dvf)) {
-        stataexe <- dvf
-        if (message) message("Stata found at ", stataexe)
-        break
+  } else if (Sys.info()["sysname"]=="Darwin") {
+    stataexe <- NULL
+    dv <- "/Applications/Stata/"
+    if (dir.exists(dv)) {
+      for (f in c("Stata", "StataSE", "StataMP")) {
+        dvf <- paste(paste(dv, f, sep="/"), "app", sep=".")
+        if (file.exists(dvf)) {
+          stataexe <- dvf
+          if (message) message("Stata found at ", stataexe)
+          break
+        }
       }
     }
+  } else if (.Platform$OS.type == "unix") {
+      stataexe <- system2("which", "stata", stdout=TRUE)
+      if (message) message("Stata found at ", stataexe)
+  } else {
+    message("Stata executable not found.\n Specify the location of your Stata executable.")
   }
-} else if (.Platform$OS.type == "unix") {
-    stataexe <- system2("which", "stata", stdout=TRUE)
-    if (message) message("Stata found at ", stataexe)
-} else {
-  message("Stata executable not found.\n Specify the location of your Stata executable.")
-}
   return(stataexe)
 }
+
