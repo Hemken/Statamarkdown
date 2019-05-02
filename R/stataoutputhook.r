@@ -7,15 +7,19 @@ stataoutputhook <- function(x, options) {
       # running <- grep("^\\.?[[:space:]]?running[[:space:]].*profile.do", y)
       # if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?running[[:space:]].*profile.do","", y[running])}
 #      print("running removed")
-#      print(y)
+# print(y)
       # Remove command echo in Stata log
       if (length(options$cleanlog)==0 | options$cleanlog!=FALSE) {
         commandlines <- grep("^\\.[[:space:]]", y)
+# print(commandlines)
         if (length(commandlines)>0) {
-          loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
+          # loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
+          loopcommands <- grep("^[[:space:]]+[[:digit:]]+\\.", y)
           commandlines <- c(commandlines, loopcommands)
         }
+# print(commandlines)
         continuations <- grep("^>[[:space:]]", y)
+        print(y[continuations])
         if (length(commandlines)>0 && length(continuations)>0) {
           for (i in 1:length(continuations)) {
             if ((continuations[i]-1) %in% commandlines) {
@@ -23,6 +27,8 @@ stataoutputhook <- function(x, options) {
             }
           }
         }
+# print(commandlines)
+# print(y[commandlines])
         if (length(commandlines)>0) {y <- y[-(commandlines)]}
 
         # Some commands have a leading space?
