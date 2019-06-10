@@ -10,8 +10,10 @@
 #  packageStartupMessage("Stata engine redefined")
 
   stataexe <- find_stata()
-  if (!is.null(stataexe)) {
+  if (stataexe!="") {
     knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+  } else {
+    packageStartupMessage("No Stata executable found.")
   }
   knitr::opts_chunk$set(#engine="stata",
                         error=TRUE, cleanlog=TRUE, comment=NA)
@@ -24,6 +26,8 @@
   knitr::knit_hooks$set(output = stataoutputhook)
 #  packageStartupMessage("output for Stata redefined")
 
-  packageStartupMessage("The 'stata' engine is ready to use.")
+  if (stataexe!="") {
+    packageStartupMessage("The 'stata' engine is ready to use.")
+  }
 
 }

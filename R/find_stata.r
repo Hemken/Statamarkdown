@@ -1,6 +1,7 @@
 find_stata <- function(message=TRUE) {
+  stataexe <- ""
   if (.Platform$OS.type == "windows"){
-  stataexe <- NULL
+#  stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
     if (dir.exists(d)) {
       for (v in 11:15) {
@@ -20,7 +21,7 @@ find_stata <- function(message=TRUE) {
     }
   }
   } else if (Sys.info()["sysname"]=="Darwin") {
-    stataexe <- NULL
+#    stataexe <- NULL
     dv <- "/Applications/Stata/"
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP")) {
@@ -33,11 +34,13 @@ find_stata <- function(message=TRUE) {
       }
     }
   } else if (.Platform$OS.type == "unix") {
+#      stataexe <- NULL
       stataexe <- system2("which", "stata", stdout=TRUE)
       if (message) message("Stata found at ", stataexe)
   } else {
-    message("Stata executable not found.\n Specify the location of your Stata executable.")
+    message("Unrecognized operating system.")
   }
+#  if (stataexe=="") message("Stata executable not found.\n Specify the location of your Stata executable.")
   return(stataexe)
 }
 
