@@ -26,8 +26,14 @@ find_stata <- function(message=TRUE) {
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP")) {
         dvf <- paste(paste(dv, f, sep="/"), "app", sep=".")
+        df2 = file.path(dvf, "Contents", "MacOS",
+                        c("Stata", "StataSE", "StataMP"))
+        df2 = df2[ file.exists(df2)]
         if (file.exists(dvf)) {
           stataexe <- dvf
+          if (length(df2) > 0) {
+            stataexe = df2
+          }
           if (message) message("Stata found at ", stataexe)
           break
         }
