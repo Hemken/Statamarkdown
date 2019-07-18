@@ -50,12 +50,15 @@ stataoutputhook <- function(x, options) {
       }
       # print(commandlines)
       # print(y[commandlines])
-      if (length(commandlines)>0) {y <- y[-(commandlines)]}
+      if (length(commandlines)>0) {
+        message("removing command lines")
+        y <- y[-(commandlines)]
+      }
 
       # Some commands have a leading space?
-      message("removing leading spaces")
 
       if (length(grep("^[[:space:]*]\\.", y))>0) {
+        message("removing leading spaces")
         y <- y[-(grep("^[[:space:]*]\\.", y))]
       }
     }
