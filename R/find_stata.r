@@ -4,7 +4,7 @@ find_stata <- function(message=TRUE) {
 #  stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
     if (dir.exists(d)) {
-      for (v in 11:15) {
+      for (v in 11:16) {
         dv <- paste(d,paste0("Stata",v), sep="/")
         if (dir.exists(dv)) {
           for (f in c("Stata", "StataSE", "StataMP",
