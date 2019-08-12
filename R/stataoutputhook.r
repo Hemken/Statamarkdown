@@ -1,5 +1,5 @@
 stataoutputhook <- function(x, options) {
-    message(paste(options$engine, "output from", options$label))
+    message(paste(options$engine, "output from chunk", options$label))
     if (options$engine=="stata") {
       y <- strsplit(x, "\n")[[1]]
 #      print(y)
@@ -19,7 +19,7 @@ stataoutputhook <- function(x, options) {
         }
 # print(commandlines)
         continuations <- grep("^>[[:space:]]", y)
-        print(y[continuations])
+#        print(y[continuations])
         if (length(commandlines)>0 && length(continuations)>0) {
           for (i in 1:length(continuations)) {
             if ((continuations[i]-1) %in% commandlines) {
