@@ -9,6 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r knit_opts, include=FALSE}
+knitr::opts_chunk$set(eval = nzchar(Sys.getenv("VIG")))
+```
+
 Each code chunk in your dynamic markdown document runs
 as a separate batch file in Stata.  This means that
 the results of one code chunk do ***not*** automatically
@@ -23,16 +28,14 @@ subsequent chunk.
 (If necessary, manually specify the Stata executable location.)
 ```{r stata_setup}
 library(Statamarkdown)
-stataexe <- find_stata()
-knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
-##An Example
+## An Example
 In this example we calculate a new variable in a first
 code chunk.  Then in a later code chunk we also use 
 the new variable.
 
-###First code block:
+### First code block:
 In the first code chunk, use the `collectcode` option.
 
     ```{stata first-Stata, collectcode=TRUE}`r ''`
@@ -48,7 +51,7 @@ generate gpm = 1/mpg
 summarize price gpm
 ```
 
-##Second code block:
+### Second code block:
 Then you can use the new variable in a later code chunk.
 
     ```{stata second-Stata}`r ''`

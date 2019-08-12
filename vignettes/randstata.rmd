@@ -9,6 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r knit_opts, include=FALSE}
+knitr::opts_chunk$set(eval = nzchar(Sys.getenv("VIG")))
+```
+
 One of the virtues of processing your dynamic documents through R
 is that you can use more than one programming language in a single
 document.  Many of us are multi-lingual, and it is often quicker 
@@ -20,21 +25,17 @@ your work involves a specialized language with limited capabilities.
 ## Some Setup for Stata
 Some initial set up is required to use Stata to process commands. 
 You would include an initial fenced code block (\"code chunk\")
-to do this.  Use the `echo=FALSE, message=FALSE`
-chunk options to hide this from your readers.
+to do this.  Use the `include=FALSE`
+chunk option to hide this from your readers.
 
 ````
 ```{r Statasetup}`r ''`
 library(Statamarkdown)
-stataexe <- find_stata()
-knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 ````
 
 ```{r Statasetup, echo=FALSE, message=FALSE}
 library(Statamarkdown)
-stataexe <- find_stata()
-knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
 Then, to switch languages, you just indicate the language in
