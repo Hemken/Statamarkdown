@@ -36,8 +36,11 @@ find_stata <- function(message=TRUE) {
     }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
-      stataexe <- system2("which", "stata", stdout=TRUE)
-      if (message) message("Stata found at ", stataexe)
+    for (stataexe in c("stata", "stata-se", "stata-mp")) {
+      stataexelnk <- tryCatch(system2("which", stataexe, stdout=TRUE))
+      if (is.null(attr(stataexelnk, "status"))) break
+    }
+    if (message) message("Stata installed on system as ", stataexe)
   } else {
     message("Unrecognized operating system.")
   }
