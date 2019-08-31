@@ -25,19 +25,12 @@ find_stata <- function(message=TRUE) {
     dv <- "/Applications/Stata/"
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP")) {
-        dvf <- paste(paste(dv, f, sep="/"), "app", sep=".") # older
-        if (file.exists(dvf)) { # check older
-          stataexe <- dvf
-          if (message) message("Stata found at ", stataexe)
-          break
-        } else { # newer
-          # see https://www.stata.com/support/faqs/mac/advanced-topics/#batch
+        # see https://www.stata.com/support/faqs/mac/advanced-topics/#batch
         dvf <- file.path(dv, paste(f, "app", sep="."), "Contents/MacOS", f)
         if (file.exists(dvf)) { # check newer
           stataexe <- dvf
           if (message) message("Stata found at ", stataexe)
-          break
-          }
+            break
         }
       }
     }
