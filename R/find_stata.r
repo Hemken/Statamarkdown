@@ -36,7 +36,7 @@ find_stata <- function(message=TRUE) {
     }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
-    for (stataexe in c("stata", "stata-se", "stata-mp")) {
+    for (stataexe in c("stata", "stata-mp", "stata-se", "stata-ic")) {
       stataexelnk <- tryCatch(system2("which", stataexe, stdout=TRUE))
       if (is.null(attr(stataexelnk, "status"))) break
     }
