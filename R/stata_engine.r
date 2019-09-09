@@ -15,7 +15,7 @@ stata_engine <- function (options)
     if (statabugcondition) {
       logfpath <- gsub(f, "", fullpathf)
       logf = stringr::str_c(logfpath, stringr::str_extract(fullpathf, "(?<=\\/)\\w+(?=\\s)"), ".log")
-      fcall = stringr::str_c('\\\"', normalizePath(f), '\\\"')
+      fcall = gsub(" ", "\\ ", stringr::str_c('\\\"', normalizePath(f), '\\\"'), fixed = TRUE)
     } else {
       logf = sub("[.]do$", ".log", f)
       fcall = shQuote(normalizePath(f))
