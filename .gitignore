@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-Statamarkdown.Rproj
+.Renviron
+.Rprofile
+.DS_Store
