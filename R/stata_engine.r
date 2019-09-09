@@ -8,13 +8,23 @@ stata_engine <- function (options)
       f <- basename(paste0(options$label, ".do"))
     }
     writeLines(options$code, f)
-
-    logf = sub("[.]do$", ".log", f)
+    
+    fullpathf <- normalizePath(f)
+    # Fix for when there is a space in filepath/filename of do-file on Unix/Linux/MacOS
+    statabugcondition <- Sys.info()[["sysname"]] != "Windows" && stringr::str_count(fullpathf, "\\s") > 0
+    if (statabugcondition) {
+      logfpath <- gsub(f, "", fullpathf)
+      logf = stringr::str_c(logfpath, stringr::str_extract(fullpathf, "(?<=\\/)\\w+(?=\\s)"), ".log")
+      fcall = stringr::str_c('\\\"', normalizePath(f), '\\\"')
+    } else {
+      logf = sub("[.]do$", ".log", f)
+      fcall = shQuote(normalizePath(f))
+    }
     if (is.null(options$savedo) || options$savedo==FALSE)
       on.exit(unlink(logf), add = TRUE)
     paste(switch(Sys.info()[["sysname"]], Windows = "/q /e do",
                  Darwin = "-q -e do", Linux = "-q -b do", "-q -b do"),
-          shQuote(normalizePath(f)))
+                 fcall)
   }
 
   if (is.list(options$engine.opts)) {
