@@ -25,26 +25,22 @@ find_stata <- function(message=TRUE) {
     dv <- "/Applications/Stata/"
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP")) {
-        dvf <- paste(paste(dv, f, sep="/"), "app", sep=".") # older
-        if (file.exists(dvf)) { # check older
-          stataexe <- dvf
-          if (message) message("Stata found at ", stataexe)
-          break
-        } else { # newer
-          # see https://www.stata.com/support/faqs/mac/advanced-topics/#batch
+        # see https://www.stata.com/support/faqs/mac/advanced-topics/#batch
         dvf <- file.path(dv, paste(f, "app", sep="."), "Contents/MacOS", f)
         if (file.exists(dvf)) { # check newer
           stataexe <- dvf
           if (message) message("Stata found at ", stataexe)
-          break
-          }
+            break
         }
       }
     }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
-      stataexe <- system2("which", "stata", stdout=TRUE)
-      if (message) message("Stata found at ", stataexe)
+    for (stataexe in c("stata", "stata-mp", "stata-se", "stata-ic")) {
+      stataexelnk <- tryCatch(system2("which", stataexe, stdout=TRUE))
+      if (is.null(attr(stataexelnk, "status"))) break
+    }
+    if (message) message("Stata installed on system as ", stataexe)
   } else {
     message("Unrecognized operating system.")
   }
