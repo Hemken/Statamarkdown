@@ -1,11 +1,13 @@
 
 .onLoad <- function (libname, pkgname) {
     if (!requireNamespace("utils")) stop("Requires utils package.")
+  # print(".onLoad")
+  # print(utils::globalVariables())
     utils::globalVariables("hook_orig") # to suppress CHECK note
 }
 
 .onAttach <- function (libname, pkgname) {
-  if (!requireNamespace("knitr")) stop("Requires knitr package.")
+#  if (!requireNamespace("knitr")) stop("Requires knitr package.")
   knitr::knit_engines$set(stata=stata_engine)
 #  packageStartupMessage("Stata engine redefined")
 
