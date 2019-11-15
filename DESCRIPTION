@@ -6,8 +6,10 @@ Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 Imports: knitr(>= 1.15), xfun(>= 0.4)
 SystemRequirements: Stata
-Authors@R: person("Doug", "Hemken", email="dehemken@wisc.edu", 
-        role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison")
+Authors@R: c(
+  person("Doug", "Hemken", email="dehemken@wisc.edu", 
+    role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison")
+  person("Tom", "Palmer", role = "ctb", comment="MacOS")
 Maintainer: Doug Hemken <dehemken@wisc.edu>
 License: MIT + file LICENSE
 BugReports: http://github.com/Hemken/Statamarkdown/issues
