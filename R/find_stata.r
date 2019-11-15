@@ -3,10 +3,10 @@ find_stata <- function(message=TRUE) {
   if (.Platform$OS.type == "windows"){
 #  stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
-    if (dir.exists(d)) {
-      for (v in 11:16) {
+    if (stataexe=="" & dir.exists(d)) {
+      for (v in seq(16,11,-1)) {
         dv <- paste(d,paste0("Stata",v), sep="/")
-        if (dir.exists(dv)) {
+        if (stataexe=="" & dir.exists(dv)) {
           for (f in c("Stata", "StataIC", "StataSE", "StataMP",
                "Stata-64", "StataIC-64", "StataSE-64", "StataMP-64")) {
             dvf <- paste(paste(dv, f, sep="/"), "exe", sep=".")
