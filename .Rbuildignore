@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^.Rhistory$
 ^README.md$
+^/inst/xdoc$
+^/inst/XMeta$
