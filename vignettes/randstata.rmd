@@ -9,11 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
-```{r knit_opts, include=FALSE}
-knitr::opts_chunk$set(eval = nzchar(Sys.getenv("VIG")))
-```
-
 One of the virtues of processing your dynamic documents through R
 is that you can use more than one programming language in a single
 document.  Many of us are multi-lingual, and it is often quicker 
@@ -31,11 +26,13 @@ chunk option to hide this from your readers.
 ````
 ```{r Statasetup}`r ''`
 library(Statamarkdown)
+stataexe <- find_stata()
 ```
 ````
 
-```{r Statasetup, echo=FALSE, message=FALSE}
+```{r Statasetup, include=FALSE}
 library(Statamarkdown)
+stataexe <- find_stata()
 ```
 
 Then, to switch languages, you just indicate the language in
@@ -66,4 +63,3 @@ summary(lm(mpg ~ wt, data=mtcars))
 ```{r cars}
 summary(lm(mpg ~ wt, data=mtcars))
 ```
-

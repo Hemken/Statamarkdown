@@ -9,11 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
-```{r knit_opts, include=FALSE}
-knitr::opts_chunk$set(eval = nzchar(Sys.getenv("VIG")))
-```
-
 Each code chunk in your dynamic markdown document runs
 as a separate batch file in Stata.  This means that
 the results of one code chunk do ***not*** automatically
@@ -28,6 +23,7 @@ subsequent chunk.
 (If necessary, manually specify the Stata executable location.)
 ```{r stata_setup}
 library(Statamarkdown)
+stataexe <- find_stata()
 ```
 
 ## An Example
@@ -63,3 +59,7 @@ Which looks like this in your document:
 regress price gpm
 ```
 
+
+```{r detach, include=FALSE}
+detach(package:Statamarkdown)
+```

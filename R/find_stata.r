@@ -42,7 +42,11 @@ find_stata <- function(message=TRUE) {
   } else {
     message("Unrecognized operating system.")
   }
-#  if (stataexe=="") message("Stata executable not found.\n Specify the location of your Stata executable.")
+  if (stataexe!="") {
+    knitr::opts_chunk$set(engine.path=list(stata=stataexe))
+  } else {
+    packageStartupMessage("No Stata executable found.")
+  }
   return(stataexe)
 }
 

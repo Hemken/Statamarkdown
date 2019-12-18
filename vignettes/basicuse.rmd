@@ -9,9 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r knit_opts, include=FALSE}
-knitr::opts_chunk$set(eval = nzchar(Sys.getenv("VIG")))
-```
 This discussion assumes you already have a basic understanding
 of Markdown for document formatting, Rmarkdown to include executable
 code in a document, and Stata to write the code.
@@ -21,23 +18,25 @@ Your first code chunk will look something like this:
 
     ```{r library}`r ''`
     library(Statamarkdown)
+    stataexe <- find_stata()
     ```
     
 This will either report that Stata was found, or
 that you need to specify it\'s location yourself.
-```{r library, echo=FALSE}
+```{r library}
 library(Statamarkdown)
+stataexe <- find_stata()
 ```
 
 You can hide all of this so it does not appear in your
-final document by using the `echo=FALSE, message=FALSE`
+final document by using the `include=FALSE`
 chunk options.
 
 ## If Stata was not found
 You will need to specify this yourself, as an alternative line in
 the \"library\" code block.
 ```{r stataexe, eval=FALSE}
-stataexe <- "C:/Program Files (x86)/Stata15/StataSE-64.exe"
+stataexe <- "C:/Program Files/Stata16/StataSE-64.exe"
 ```
 
 If you do not know where to find you Stata executable (app),
