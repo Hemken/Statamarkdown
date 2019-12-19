@@ -1,6 +1,12 @@
-# unexported from 'knitr' version 1.22
+# unexported from 'knitr' version 1.26
+# author: Yihui Xie, 2019
 
-split_lines = function(x) { 
+# hook_orig <- function(x, options) x
+
+# unexported from 'knitr' version 1.22
+# author: Yihui Xie
+
+split_lines = function(x) {
     if (length(grep('\n', x)) == 0L) return(x)
     x = gsub('\n$', '\n\n', x)
     x[x == ''] = '\n'
@@ -31,9 +37,9 @@ out_format = function(x) {
 
 # unexported from 'highr' version 0.8
 spaces = function (n = 1, char = " ") {
-    if (n <= 0) 
+    if (n <= 0)
         return("")
-    if (n == 1) 
+    if (n == 1)
         return(char)
     paste(rep(char, n), collapse = "")
 }
