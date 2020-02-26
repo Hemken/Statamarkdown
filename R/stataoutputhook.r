@@ -1,8 +1,10 @@
 stataoutputhook <- function(x, options) {
-    message(paste(options$engine, "output from chunk", options$label))
+    message(paste("\n", options$engine, "output from chunk", options$label))
+# print("input to stataoutputhook")
+# print(x)
     if (options$engine=="stata") {
       y <- strsplit(x, "\n")[[1]]
-#      print(y)
+# print(y)
       # # Remove "running profile.do"
       # running <- grep("^\\.?[[:space:]]?running[[:space:]].*profile.do", y)
       # if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?running[[:space:]].*profile.do","", y[running])}
@@ -45,6 +47,8 @@ stataoutputhook <- function(x, options) {
     } else {
       y <- x
     }
-    # Now treat the result as regular output
+# print("from stataoutputhook")
+# print(y)
+# Now treat the result as regular output
     hook_orig(y, options)
 }
