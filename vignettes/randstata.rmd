@@ -26,13 +26,11 @@ chunk option to hide this from your readers.
 ````
 ```{r Statasetup}`r ''`
 library(Statamarkdown)
-stataexe <- find_stata()
 ```
 ````
 
 ```{r Statasetup, include=FALSE}
 library(Statamarkdown)
-stataexe <- find_stata()
 ```
 
 Then, to switch languages, you just indicate the language in
@@ -62,4 +60,8 @@ summary(lm(mpg ~ wt, data=mtcars))
 
 ```{r cars}
 summary(lm(mpg ~ wt, data=mtcars))
+```
+
+```{r detach, include=FALSE}
+detach(package:Statamarkdown)
 ```

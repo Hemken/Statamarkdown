@@ -18,14 +18,12 @@ Your first code chunk will look something like this:
 
     ```{r library}`r ''`
     library(Statamarkdown)
-    stataexe <- find_stata()
     ```
     
 This will either report that Stata was found, or
 that you need to specify it\'s location yourself.
 ```{r library}
 library(Statamarkdown)
-stataexe <- find_stata()
 ```
 
 You can hide all of this so it does not appear in your
@@ -63,4 +61,8 @@ And in your document this would produce:
 ```{stata example}
 sysuse auto
 summarize
+```
+
+```{r detach, include=FALSE}
+detach(package:Statamarkdown)
 ```

@@ -23,7 +23,6 @@ subsequent chunk.
 (If necessary, manually specify the Stata executable location.)
 ```{r stata_setup}
 library(Statamarkdown)
-stataexe <- find_stata()
 ```
 
 ## An Example

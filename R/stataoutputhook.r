@@ -1,14 +1,14 @@
 stataoutputhook <- function(x, options) {
     message(paste("\n", options$engine, "output from chunk", options$label))
-print("input to stataoutputhook")
-print(x)
+# print("input to stataoutputhook")
+# print(x)
     if (options$engine=="stata") {
       y <- strsplit(x, "\n")[[1]]
-print(y)
+# print(y)
 # Remove "running profile.do"
 running <- grep("^\\.?[[:space:]]?Running[[:space:]].*profile.do", y)
 if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?Running[[:space:]].*profile.do","", y[running])}
-     print("running removed")
+     # print("running removed")
 # print(y)
       # Remove command echo in Stata log
       if (length(options$cleanlog)==0 | options$cleanlog!=FALSE) {
