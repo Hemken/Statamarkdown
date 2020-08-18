@@ -2,5 +2,6 @@
 ^\.Rproj\.user$
 ^.Rhistory$
 ^README.md$
-^/inst/xdoc$
-^/inst/XMeta$
+^doc$
+^Meta$
+^prebuild_vignettes.r$
