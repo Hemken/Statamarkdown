@@ -6,7 +6,7 @@ stataoutputhook <- function(x, options) {
       y <- strsplit(x, "\n")[[1]]
 # print(y)
 # Remove "running profile.do"
-running <- grep("^\\.?[[:space:]]?Running[[:space:]].*profile.do", y)
+running <- grep("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do", y)
 if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?Running[[:space:]].*profile.do","", y[running])}
      # print("running removed")
 # print(y)
