@@ -26,7 +26,7 @@ find_stata <- function(message=TRUE) {
 #    stataexe <- NULL
     dv <- "/Applications/Stata/"
     if (dir.exists(dv)) {
-      for (f in c("Stata", "StataSE", "StataMP")) {
+      for (f in c("Stata", "StataSE", "StataMP", "StataIC")) {
         dvf <- paste(paste(paste(dv, f, sep="/"), "app", sep="."), "Contents/MacOS", f, sep="/")
         if (file.exists(dvf)) {
           stataexe <- dvf
