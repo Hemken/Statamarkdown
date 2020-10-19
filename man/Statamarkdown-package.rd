@@ -12,7 +12,7 @@ library from \emph{within} the document to be \code{knit}.  A
 typical preliminary code check in a document would be
 
 \preformatted{
-    ```{r setup}
+    ```{r setup, include=FALSE}
     library(Statamarkdown)
     ```
 }

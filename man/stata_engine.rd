@@ -51,11 +51,11 @@ indoc <- '
 ```{r}
 library(Statamarkdown)
 stataexe <- find_stata()
-knitr::opts_chunk$set(engine="stata", #engine.path=stataexe,
+knitr::opts_chunk$set(engine.path=list(stata=stataexe),
   error=TRUE, cleanlog=TRUE, comment=NA)
 ```
 ## Then mark Stata code chunks with
-```{r, engine="stata", engine.path=stataexe, collectcode=TRUE}
+```{stata, collectcode=TRUE}
 sysuse auto, clear
 generate gpm = 1/mpg
 summarize price gpm
@@ -66,7 +66,11 @@ summarize price gpm
 regress price gpm
 ```
 '
-knitr::knit(text=indoc, output="test.md")
-rmarkdown::render("test.md")
+# To run this example, remove tempdir().
+fmd <- file.path(tempdir(), "test.md")
+fhtml <- file.path(tempdir(), "test.html")
+
+knitr::knit(text=indoc, output=fmd)
+markdown::markdownToHTML(fmd, fhtml)
 }
 }

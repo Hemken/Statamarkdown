@@ -2,12 +2,14 @@
 \alias{find_stata}
 \title{
 A helper function that seeks to locate your Stata executable.
+Ordinarily this is run
+automatically when \pkg{Statamarkdown} is loaded.
 }
 \description{
 This function searches for recent versions of Stata (>= Stata 11),
 in some of the usual default installation locations.
 
-In the event Stata is not found, you will have to specify the
+If Stata is not found, you will have to specify it's
 correct location yourself.
 
 }
@@ -35,21 +37,17 @@ indoc <- '
 ```{r}
 library(Statamarkdown)
 stataexe <- find_stata()
-knitr::opts_chunk$set(engine="stata", #engine.path=stataexe,
+knitr::opts_chunk$set(engine.path=list(stata=stataexe),
   error=TRUE, cleanlog=TRUE, comment=NA)
 ```
 ## Then mark Stata code chunks with
-```{r, engine="stata", engine.path=stataexe, collectcode=TRUE}
+```{stata}
 sysuse auto, clear
 generate gpm = 1/mpg
 summarize price gpm
 ```
-
-## A later chunk that depends on the first.
-```{r, engine="stata", engine.path=stataexe}
-regress price gpm
-```
 '
+
 # To run this example, remove tempdir().
 fmd <- file.path(tempdir(), "test.md")
 fhtml <- file.path(tempdir(), "test.html")
