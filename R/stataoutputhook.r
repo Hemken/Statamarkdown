@@ -1,9 +1,10 @@
 stataoutputhook <- function(x, options) {
-    message(paste("\n", options$engine, "output from chunk", options$label))
+    if (options$noisey==TRUE) message(paste("\n", options$engine, "output from chunk", options$label))
 # print("input to stataoutputhook")
 # print(x)
     if (options$engine=="stata") {
       y <- strsplit(x, "\n")[[1]]
+# print("input to stata output parse")
 # print(y)
 # Remove "running profile.do"
 running <- grep("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do", y)
@@ -30,6 +31,7 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
           }
         }
 # print(commandlines)
+# print("Stata command lines")
 # print(y[commandlines])
         if (length(commandlines)>0) {y <- y[-(commandlines)]}
 
@@ -40,7 +42,8 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
       }
       # Ensure a trailing blank line
       if (length(y)>0 && y[length(y)] != "") { y <- c(y, "") }
-
+# print("Command lines removed")
+# print(y)
       # Remove blank lines at the top of the Stata log
       firsttext <- min(grep("[[:alnum:]]", y))
       if (firsttext != Inf && firsttext != 1) {y <- y[-(1:(firsttext-1))]}

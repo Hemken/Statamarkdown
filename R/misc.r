@@ -17,7 +17,7 @@
   } else {
     packageStartupMessage("No Stata executable found.")
   }
-  knitr::opts_chunk$set(error=TRUE, cleanlog=TRUE, comment=NA)
+  knitr::opts_chunk$set(error=TRUE, cleanlog=TRUE, comment=NA, noisey=FALSE)
 #  packageStartupMessage("Chunk options optimized")
 
   stata_collectcode()
