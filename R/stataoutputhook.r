@@ -18,7 +18,13 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
         if (length(commandlines)>0) {
           # loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
           loopcommands <- grep("^[[:space:]]+[[:digit:]]+\\.", y)
-          commandlines <- c(commandlines, loopcommands)
+          if (length(commandlines)>0 && length(loopcommands)>0) {
+          for (i in 1:length(loopcommands)) {
+            if ((loopcommands[i]-1) %in% commandlines) {
+              commandlines <- c(commandlines, loopcommands[i])
+            }
+          }
+          }
         }
 # print(commandlines)
         continuations <- grep("^>[[:space:]]", y)
