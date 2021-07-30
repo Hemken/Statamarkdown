@@ -2,7 +2,7 @@
 library(devtools)
 build_vignettes()
 if (!dir.exists("inst/doc")) dir.create("inst/doc")
-file.copy(from=paste("doc", list.files("doc"), sep="/"), to="inst/doc", overwrite=TRUE)
+file.copy(from=paste("vignettes", list.files("vignettes"), sep="/"), to="inst/doc", overwrite=TRUE)
 if (!dir.exists("inst/Meta")) dir.create("inst/Meta")
 file.copy(from=paste("Meta", list.files("Meta"), sep="/"), to="inst/Meta", overwrite=TRUE)
 clean_vignettes()

@@ -4,11 +4,11 @@ find_stata <- function(message=TRUE) {
 #  stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
     if (stataexe=="" & dir.exists(d)) {
-      for (v in seq(16,11,-1)) {
+      for (v in seq(17,11,-1)) {
         dv <- paste(d,paste0("Stata",v), sep="/")
         if (dir.exists(dv)) {
-          for (f in c("Stata", "StataIC", "StataSE", "StataMP",
-               "Stata-64", "StataIC-64", "StataSE-64", "StataMP-64")) {
+          for (f in c("Stata", "StataIC", "StataSE", "StataMP", "StataBE",
+               "Stata-64", "StataIC-64", "StataSE-64", "StataMP-64", "StataBE-64")) {
             dvf <- paste(paste(dv, f, sep="/"), "exe", sep=".")
             if (file.exists(dvf)) {
               stataexe <- dvf
@@ -24,9 +24,9 @@ find_stata <- function(message=TRUE) {
   }
   } else if (Sys.info()["sysname"]=="Darwin") {
 #    stataexe <- NULL
-    dv <- "/Applications/Stata/"
+    dv <- "/Applications/Stata"
     if (dir.exists(dv)) {
-      for (f in c("Stata", "StataSE", "StataMP", "StataIC")) {
+      for (f in c("Stata", "StataSE", "StataMP", "StataIC", "StataBE")) {
         dvf <- paste(paste(paste(dv, f, sep="/"), "app", sep="."), "Contents/MacOS", f, sep="/")
         if (file.exists(dvf)) {
           stataexe <- dvf
