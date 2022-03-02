@@ -1,7 +1,7 @@
 Package: Statamarkdown
 Type: Package
-Version: 0.7.0
-Date: 2021-07-30
+Version: 0.7.1
+Date: 2022-03-02
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 Imports: knitr (>= 1.15), xfun (>= 0.4)
@@ -10,7 +10,7 @@ SystemRequirements: Stata
 Authors@R: c(
   person("Doug", "Hemken", email="dehemken@wisc.edu", 
     role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison"),
-  person("Tom", "Palmer", role = "ctb", comment="MacOS"),
+  person("Tom", "Palmer", role = "ctb", comment="MacOS, linux"),
   person("Philipp", "Lepert", role = "ctb")
   )
 Maintainer: Doug Hemken <dehemken@wisc.edu>
