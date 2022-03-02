@@ -38,13 +38,21 @@ find_stata <- function(message=TRUE) {
     }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
-    for (stataexe in c("stata-mp", "stata-se", "stata", "stata-ic")) {
-      stataexelnk <- Sys.which(stataexe)[[stataexe]]
-      if (stataexelnk != '') {
-        if (message) message("Stata found at ", stataexelnk)
+    for (f in c("stata-mp", "stata-se", "stata", "stata-ic")) {
+      stataexe <- Sys.which(f)[[f]]
+      if (stataexe != '') {
+        if (message) message("Stata found at ", stataexe)
         break
       }
-      else message("Stata executable ", stataexe, " not found")
+      else
+        for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin")) {
+          df <- paste(d, f, sep="/")
+          if (file.exists(df)) {
+            stataexe <- df
+            if (message) message("Stata found at ", stataexe)
+            break
+          }
+        }
     }
   } else {
     message("Unrecognized operating system.")
