@@ -31,7 +31,6 @@ find_stata <- function(message=TRUE) {
         if (file.exists(dvf)) {
           stataexe <- dvf
           if (message) message("Stata found at ", stataexe)
-          break
         }
         if (stataexe != "") break
       }
@@ -42,7 +41,6 @@ find_stata <- function(message=TRUE) {
       stataexe <- Sys.which(f)[[f]]
       if (stataexe != '') {
         if (message) message("Stata found at ", stataexe)
-        break
       }
       else
         for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin")) {
@@ -50,9 +48,10 @@ find_stata <- function(message=TRUE) {
           if (file.exists(df)) {
             stataexe <- df
             if (message) message("Stata found at ", stataexe)
-            break
           }
+          if (stataexe != "") break
         }
+      if (stataexe != "") break
     }
   } else {
     message("Unrecognized operating system.")
