@@ -43,7 +43,7 @@ find_stata <- function(message=TRUE) {
         if (message) message("Stata found at ", stataexe)
       }
       else
-        for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin")) {
+        for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin", "/usr/local/stata17", "/usr/local/stata16", "/usr/local/stata15")) {
           df <- paste(d, f, sep="/")
           if (file.exists(df)) {
             stataexe <- df
