@@ -1,9 +1,12 @@
 stataoutputhook <- function(x, options) {
-    if (options$noisey==TRUE) message(paste("\n", options$engine, "output from chunk", options$label))
-# print("input to stataoutputhook")
-# print(x)
+    if (options$noisey==TRUE) {
+      message(paste("\n", options$engine, "output from chunk", options$label))
+      message("input to stataoutputhook()")
+      message(x)
+      }
+    x_noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", x)
     if (options$engine=="stata") {
-      y <- strsplit(x, "\n")[[1]]
+      y <- strsplit(x_noprofile, "\n")[[1]]
 # print("input to stata output parse")
 # print(y)
 # Remove "running profile.do"
