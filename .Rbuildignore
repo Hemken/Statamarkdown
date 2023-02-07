@@ -1,7 +1,3 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^.Rhistory$
-^README.md$
-^doc$
-^Meta$
-^prebuild_vignettes.r$
+^vignettes$
