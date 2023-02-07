@@ -1,11 +1,9 @@
 Package: Statamarkdown
-Type: Package
 Version: 0.7.2
-Date: 2023-24-01
+Date: 2023-02-07
 Title: 'Stata' Markdown
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 Imports: knitr (>= 1.15), xfun (>= 0.4)
-Suggests: rmarkdown
 SystemRequirements: Stata
 Authors@R: c(
   person("Doug", "Hemken", email="dehemken@wisc.edu", 
@@ -15,8 +13,5 @@ Authors@R: c(
   )
 Maintainer: Doug Hemken <dehemken@wisc.edu>
 License: MIT + file LICENSE
-BugReports: http://github.com/Hemken/Statamarkdown/issues
+BugReports: https://github.com/Hemken/Statamarkdown/issues
 Encoding: UTF-8
-RoxygenNote: 6.1.1
-VignetteBuilder: rmarkdown
-Suggests: rmarkdown
