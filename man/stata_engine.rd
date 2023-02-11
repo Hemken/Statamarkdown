@@ -44,33 +44,27 @@ Doug Hemken
 }
 \examples{
 
-\dontrun{
 indoc <- '
 # An R console example
 ## In a first code chunk, set up with
 ```{r}
 library(Statamarkdown)
-stataexe <- find_stata()
-knitr::opts_chunk$set(engine.path=list(stata=stataexe),
-  error=TRUE, cleanlog=TRUE, comment=NA)
 ```
+
 ## Then mark Stata code chunks with
-```{stata, collectcode=TRUE}
+```{stata}
 sysuse auto, clear
 generate gpm = 1/mpg
 summarize price gpm
 ```
-
-## A later chunk that depends on the first.
-```{r, engine="stata", engine.path=stataexe}
-regress price gpm
-```
 '
-# To run this example, remove tempdir().
-fmd <- file.path(tempdir(), "test.md")
-fhtml <- file.path(tempdir(), "test.html")
 
-knitr::knit(text=indoc, output=fmd)
-markdown::markdownToHTML(fmd, fhtml)
+if (!is.null(Statamarkdown::find_stata())) {
+  # To run this example, remove tempdir().
+  fmd <- file.path(tempdir(), "test.md")
+  fhtml <- file.path(tempdir(), "test.html")
+
+  knitr::knit(text=indoc, output=fhtml)
+  markdown::markdownToHTML(fmd, fhtml)
 }
 }

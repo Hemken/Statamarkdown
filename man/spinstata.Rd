@@ -21,7 +21,7 @@ spinstata(statafile, text=NULL, keep=FALSE, ...)
 
 \details{
 This function takes a Stata file containing special mark up in
-it's comments, and converts it into knitr's "spin" format. 
+it's comments, and converts it into knitr's "spin" format.
 This is in turn sent to \code{knitr::spin}, and converted to
 Markdown and HTML (or one of several other formats).
 
@@ -49,18 +49,17 @@ Doug Hemken
 }
 \examples{
 
-\dontrun{
 indoc <- "/*'
+# Statamarkdown Example
 This is a special Stata script which can be used to generate a report.
 You can write normal text in command-style comments.
 
-First we specify a path for Stata and set up some options.
+First we load Statamarkdown.
 '*/
 
   /*+  setup +*/
   /*R
 library(Statamarkdown)
-knitr::opts_chunk$set(engine.path=list(stata=find_stata()), comment=NA)
 R*/
 
   /*' The report begins here. '*/
@@ -70,9 +69,12 @@ R*/
 /* Stata comment */
   summarize
 
-/*' You can use the ***usual*** Markdown.'*/
+/*' You can use the ***usual*** Markdown to mark up text.'*/
 "
-x<-spinstata(text=indoc)
-writeLines(x, "indoc.html")
+if (!is.null(Statamarkdown::find_stata())) {
+  # To run this example, remove tempdir().
+  fhtml <- file.path(tempdir(), "test.html")
+  x<-Statamarkdown::spinstata(text=indoc)
+  writeLines(x, fhtml)
 }
 }
