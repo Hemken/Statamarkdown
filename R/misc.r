@@ -3,7 +3,7 @@
     if (!requireNamespace("utils")) stop("Requires utils package.")
   # print(".onLoad")
   # print(utils::globalVariables())
-    utils::globalVariables("hook_orig", "Statamarkdown") # to suppress CHECK note
+    utils::globalVariables("hook_orig", "Statamarkdown", add=FALSE) # to suppress CHECK note
 }
 
 .onAttach <- function (libname, pkgname) {
