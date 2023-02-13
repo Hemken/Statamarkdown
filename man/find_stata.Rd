@@ -50,8 +50,8 @@ if (!is.null(Statamarkdown::find_stata())) {
   fmd <- file.path(tempdir(), "test.md")
   fhtml <- file.path(tempdir(), "test.html")
 
-  knitr::knit(text=indoc, output=fhtml)
-  markdown::markdownToHTML(fmd, fhtml)
+  knitr::knit(text=indoc, output=fmd)
+  rmarkdown::render(fmd, "html_document", fhtml)
 }
 }
 
