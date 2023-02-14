@@ -48,6 +48,7 @@ Doug Hemken
 \code{\link{Statamarkdown-package}}
 }
 \examples{
+\dontrun{
 indoc <- "/*'
 # Statamarkdown Example
 
@@ -77,4 +78,6 @@ if (!is.null(Statamarkdown::find_stata())) {
   x<-Statamarkdown::spinstata(text=indoc)
   writeLines(x, fhtml)
 }
+}
+
 }
