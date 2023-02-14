@@ -48,9 +48,9 @@ Doug Hemken
 \code{\link{Statamarkdown-package}}
 }
 \examples{
-
 indoc <- "/*'
 # Statamarkdown Example
+
 This is a special Stata script which can be used to generate a report.
 You can write normal text in command-style comments.
 
