@@ -28,9 +28,16 @@ stata_engine <- function (options)
     logf = sub("[.]do$", ".log", f)
     if (is.null(options$savedo) || options$savedo==FALSE)
       on.exit(unlink(logf), add = TRUE)
-    paste(switch(Sys.info()[["sysname"]], Windows = "/q /e do",
-                 Darwin = "-q -e do", Linux = "-q -b do", "-q -b do"),
-          shQuote(normalizePath(f)))
+    paste(switch(Sys.info()[["sysname"]],
+                 Windows = "/q /e do",
+                 Darwin = "-q -e do",
+                 Linux = "-q -b do",
+                 "-q -b do"),
+          switch(Sys.info()[["sysname"]],
+                 Windows = shQuote(normalizePath(f)),
+                 Darwin = paste0("\'\"", normalizePath(f), "\"\'"),
+                 Linux  = paste0("\'\"", normalizePath(f), "\"\'"),
+                 shQuote(normalizePath(f))))
   }
 
   if (is.list(options$engine.opts)) {
