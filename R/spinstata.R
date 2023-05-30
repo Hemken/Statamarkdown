@@ -6,37 +6,37 @@ spinstata <- function(statafile, text=NULL, keep=FALSE, ...) {
         vtext <- unlist(strsplit(text, "\n"))
         # return(vtext)
     }
-    
+
     # return(vtext)
-    
+
     md_start    <- grepl(pattern="^[[:space:]]*/[*]['][[:space:]]*", x=vtext)    # markdown begins
     md_end      <- grepl(pattern="['][*]/[[:space:]]*$", x=vtext)                # markdown ends
     md_block    <- rep(0, length(vtext))
     md_block[1] <- md_block[1] + md_start[1]
-    
+
     chunk_start <- grepl(pattern="^[[:space:]]*/[*][+][[:space:]]*", x=vtext)    # chunk begins
     chunk_end   <- grepl(pattern="[+][*]/[[:space:]]*$", x=vtext)                # chunk ends
     chunk_head  <- rep(0, length(vtext))
     chunk_head[1] <- chunk_head[1] + chunk_start[1]
-    
+
     R_start    <- grepl(pattern="^[[:space:]]*/[*][R][[:space:]]*", x=vtext)    # R code begins
     R_end      <- grepl(pattern="[R][*]/[[:space:]]*$", x=vtext)                # R code ends
     R_code     <- rep(0, length(vtext))
     R_code[1]  <- R_code[1] + R_start[1]
-    
+
     for (i in 2:length(vtext)) {
         md_block[i]   <- md_block[i-1]   + md_start[i]    - md_end[i-1]
         chunk_head[i] <- chunk_head[i-1] + chunk_start[i] - chunk_end[i-1]
         R_code[i]     <- R_code[i-1]     + R_start[i]     - R_end[i-1]
     }
-    
+
     stata_code <- (md_block + chunk_head + R_code) == 0              # stata code lines
-    
+
     # Markdown (document)
     vtext[as.logical(md_start)] <- sub("^[[:space:]]*/[*]['][[:space:]]*", "", vtext[as.logical(md_start)])     # strip leading /*'
     vtext[as.logical(md_block)] <- paste("#' ", vtext[as.logical(md_block)])              # markdown lines
     vtext[as.logical(md_end)]   <- sub("['][*]/[[:space:]]*$", "", vtext[as.logical(md_end)])           # strip trailing "'*/"
-    
+
     # Chunk header
     vtext[as.logical(chunk_start)] <- sub("^[[:space:]]*/[*][+][[:space:]]*", "#\\+ ", vtext[as.logical(chunk_start)])     # convert leading "*+" to "#+"
     vtext[as.logical(chunk_end)] <- sub("[+][*]/[[:space:]]*$", "", vtext[as.logical(chunk_end)])       # strip trailing ";"
@@ -50,10 +50,10 @@ spinstata <- function(statafile, text=NULL, keep=FALSE, ...) {
 
     # # stata code
     # vtext[statal] <- paste0(vtext[statal], ";\n")
-    # 
+    #
     # # ensure chunk headers start on new lines
     # vtext[(pre & chunkl)!=chunkl] <- paste0("\n", vtext[(pre & chunkl)!=chunkl])
-    # 
+    #
     # # restore leading line breaks
     # lb <- vector("character", length=length(pre))
     # while (any(pre>0)) {
@@ -61,14 +61,14 @@ spinstata <- function(statafile, text=NULL, keep=FALSE, ...) {
     #     pre[pre>0] <- pre[pre>0]-1
     # }
     # vtext <- paste0(lb, vtext)
-    # 
+    #
     # reshape from stata to R
     #vtext <- unlist(strsplit(paste(vtext, collapse=""), "\n"))
     #return(vtext)
-    
+
     if (is.null(text)) {
         rfile <- sub("[.]do$", ".r", statafile)
-        
+
         writeLines(vtext, rfile)
         if (!keep)
             on.exit(unlink(rfile), add=TRUE)
@@ -78,7 +78,7 @@ spinstata <- function(statafile, text=NULL, keep=FALSE, ...) {
         # return(knitr::spin(text=vtext, precious=keep, comment=c("^/[*][*]", "^.*[*]/[*] *$"), ...))
         return(spin_lang(text=vtext, precious=keep, comment=c("^/[*][*]", "^.*[*]/[*] *$"), language="stata", ...))
     }
-    
+
 }
 
 # modified from knitr::spin() version 1.22
@@ -90,26 +90,26 @@ spin_lang = function(
     comment = c("^[# ]*/[*]", "^.*[*]/ *$"), precious = !knit && is.null(text),
     language = "R"
 ) {
-    
+
     format = match.arg(format)
-    x = if (nosrc <- is.null(text)) xfun::read_utf8(hair) else split_lines(text)
+    x = if (nosrc <- is.null(text)) xfun::read_utf8(hair) else xfun::split_lines(text)
     stopifnot(length(comment) == 2L)
     c1 = grep(comment[1], x); c2 = grep(comment[2], x)
     if (length(c1) != length(c2))
         stop('comments must be put in pairs of start and end delimiters')
     # remove comments
     if (length(c1)) x = x[-unique(unlist(mapply(seq, c1, c2, SIMPLIFY = FALSE)))]
-    
+
     # remove multiline string literals and symbols (note that this ignores lines with spaces at their
     # beginnings, assuming doc and inline regex don't match these lines anyway)
     if (language == "R"){
         parsed_data = utils::getParseData(parse(text = x, keep.source = TRUE))
         is_matchable = seq_along(x) %in% unique(parsed_data[parsed_data$col1 == 1, 'line1'])
     }
-    
+
     # .Rmd needs to be treated specially
     p = if (identical(tolower(format), 'rmd')) .fmt.rmd(x) else .fmt.pat[[tolower(format)]]
-    
+
     # turn {{expr}} into inline expressions, e.g. `r expr` or \Sexpr{expr}
     if (language == "R") {
         if (any(i <- is_matchable & grepl(inline, x))) x[i] = gsub(inline, p[4], x[i])
@@ -118,10 +118,10 @@ spin_lang = function(
         if (any(i <- grepl(inline, x))) x[i] = gsub(inline, p[4], x[i])
         r = rle((grepl(doc, x)) | i)  # inline expressions are treated as doc instead of code
     }
-    
+
     n = length(r$lengths); txt = vector('list', n); idx = c(0L, cumsum(r$lengths))
     p1 = gsub('\\{', '\\\\{', paste0('^', p[1L], '.*', p[2L], '$'))
-    
+
     for (i in seq_len(n)) {
         block = x[seq(idx[i] + 1L, idx[i + 1])]
         txt[[i]] = if (r$values[i]) {
@@ -145,7 +145,7 @@ spin_lang = function(
             c('', block, p[3L], '')
         }
     }
-    
+
     txt = unlist(txt)
     # make it a complete TeX document if document class not specified
     if (report && format %in% c('Rnw', 'Rtex') && !grepl('^\\s*\\\\documentclass', txt)) {
@@ -157,7 +157,7 @@ spin_lang = function(
         txt = NULL
     } else outsrc = NULL
     if (!knit) return(txt %n% outsrc)
-    
+
     out = if (report) {
         if (format == 'Rmd') {
             knitr::knit2html(outsrc, text = txt, envir = envir)
@@ -165,7 +165,7 @@ spin_lang = function(
             knitr::knit2pdf(outsrc, envir = envir)
         }
     } else knitr::knit(outsrc, text = txt, envir = envir)
-    
+
     if (!precious && !is.null(outsrc)) file.remove(outsrc)
     invisible(out)
 }

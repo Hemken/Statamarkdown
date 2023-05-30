@@ -13,7 +13,7 @@ engine_output <- function (options, code, out, extra = NULL) {
       out = stata_engine_output(out, options)
   }
   single_string(c(if (length(options$echo) > 1 || options$echo) (knitr::knit_hooks$get("source"))(code, options),
-                  if (options$results != "hide" && !is_blank(out)) {
+                  if (options$results != "hide" && !xfun::is_blank(out)) {
       if (options$engine == "highlight") out else knitr::sew(out, options)
   },
   extra))
