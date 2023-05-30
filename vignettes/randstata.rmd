@@ -39,13 +39,13 @@ the code fence.
 ## Using Stata 
 
 ````
-```{stata}`r ''`
+```{stata auto}`r ''`
 sysuse auto
 regress mpg weight
 ```
 ````
 
-```{stata}
+```{stata auto}
 sysuse auto
 regress mpg weight
 ```
@@ -60,8 +60,4 @@ summary(lm(mpg ~ wt, data=mtcars))
 
 ```{r cars}
 summary(lm(mpg ~ wt, data=mtcars))
-```
-
-```{r detach, include=FALSE}
-detach(package:Statamarkdown)
 ```

@@ -12,7 +12,7 @@ vignette: >
 Each code chunk in your dynamic markdown document runs
 as a separate batch file in Stata.  This means that
 the results of one code chunk do ***not*** automatically
-carry over to the next.  You can have the results of
+carry over to the next.  You can make the results of
 a chunk carry over to all subsequent chunks by using
 the `collectcode=TRUE` chunk option.
 
@@ -26,8 +26,8 @@ library(Statamarkdown)
 ```
 
 ## An Example
-In this example we calculate a new variable in a first
-code chunk.  Then in a later code chunk we also use 
+In this example we load the data and calculate a new variable in a first
+code chunk.  Then in a later code chunk we also use the data, including
 the new variable.
 
 ### First code block:
@@ -47,7 +47,7 @@ summarize price gpm
 ```
 
 ### Second code block:
-Then you can use the new variable in a later code chunk.
+Then you can use the data and the new variable in a later code chunk.
 
     ```{stata second-Stata}`r ''`
     regress price gpm
@@ -56,9 +56,4 @@ Then you can use the new variable in a later code chunk.
 Which looks like this in your document:
 ```{stata second-Stata}
 regress price gpm
-```
-
-
-```{r detach, include=FALSE}
-detach(package:Statamarkdown)
 ```

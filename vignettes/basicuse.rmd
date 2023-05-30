@@ -34,9 +34,9 @@ chunk options.
 You will need to specify this yourself, as additional lines in
 the \"library\" code block above.
 ```{r stataexe, eval=FALSE}
-stataexe <- "C:/Program Files/Stata16/StataSE-64.exe" # Windows
+stataexe <- "C:/Program Files/Stata18/StataSE-64.exe" # Windows
 # stataexe <- "/Applications/Stata/StataSE.app/Contents/MacOS/StataSE" # Mac OS
-# stataexe <- "/usr/local/stata17/stata-se" # Unix
+# stataexe <- "/usr/local/stata18/stata-se" # Unix
 knitr::opts_chunk$set(engine.path = list(stata = stataexe))
 ```
 
@@ -62,8 +62,4 @@ And in your document this would produce:
 ```{stata example}
 sysuse auto
 summarize
-```
-
-```{r detach, include=FALSE}
-detach(package:Statamarkdown)
 ```
