@@ -1,6 +1,5 @@
 library(rmarkdown)
 
-try(detach("package:Statamarkdown", unload=TRUE))
 render("vignettes/basicuse.rmd", output_format=html_vignette(),
        output_file="1_Basic_Use_of_Statamarkdown.html", output_dir="inst/doc")
 render("vignettes/linkblocks.Rmd", output_format=html_vignette(),

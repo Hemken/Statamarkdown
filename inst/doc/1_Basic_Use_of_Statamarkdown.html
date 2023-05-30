@@ -339,7 +339,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Basic Use of Statamarkdown</h1>
 <h4 class="author">Doug Hemken</h4>
-<h4 class="date">Feb 2023</h4>
+<h4 class="date">May 2023</h4>
 
 
 
@@ -355,9 +355,6 @@ library(Statamarkdown)
 <p>This will either report that Stata was found, or that you need to
 specify it&#39;s location yourself.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span></code></pre></div>
-<pre><code>Stata found at C:/Program Files/Stata17/StataSE-64.exe</code></pre>
-<pre><code>Found a &#39;sysprofile.do&#39;</code></pre>
-<pre><code>The &#39;stata&#39; engine is ready to use.</code></pre>
 <p>You can hide all of this so it does not appear in your final document
 by using the <code>include=FALSE</code> chunk options.</p>
 </div>
@@ -365,10 +362,10 @@ by using the <code>include=FALSE</code> chunk options.</p>
 <h2>If Stata was not found</h2>
 <p>You will need to specify this yourself, as additional lines in the
 &quot;library&quot; code block above.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span> <span class="co"># Windows</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stataexe &lt;- &quot;/Applications/Stata/StataSE.app/Contents/MacOS/StataSE&quot; # Mac OS</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># stataexe &lt;- &quot;/usr/local/stata17/stata-se&quot; # Unix</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path =</span> <span class="fu">list</span>(<span class="at">stata =</span> stataexe))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stataexe <span class="ot">&lt;-</span> <span class="st">&quot;C:/Program Files/Stata16/StataSE-64.exe&quot;</span> <span class="co"># Windows</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># stataexe &lt;- &quot;/Applications/Stata/StataSE.app/Contents/MacOS/StataSE&quot; # Mac OS</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># stataexe &lt;- &quot;/usr/local/stata17/stata-se&quot; # Unix</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">engine.path =</span> <span class="fu">list</span>(<span class="at">stata =</span> stataexe))</span></code></pre></div>
 <p>If you do not know where to find you Stata executable (app), open
 Stata and issue the command <code>sysdir</code>. The line labeled
 <code>STATA:</code> is the folder where your Stata executable is
@@ -385,8 +382,8 @@ sysuse auto
 summarize
 ```</code></pre>
 <p>And in your document this would produce:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sysuse</span> auto</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sysuse</span> auto</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span></span></code></pre></div>
 <pre><code>(1978 automobile data)
 
     Variable |        Obs        Mean    Std. dev.       Min        Max

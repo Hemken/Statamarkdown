@@ -1,33 +1,22 @@
 
-.onLoad <- function (libname, pkgname) {
-    if (!requireNamespace("utils")) stop("Requires utils package.")
-  # print(".onLoad")
-  # print(utils::globalVariables())
-    utils::globalVariables("hook_orig", "Statamarkdown", add=FALSE) # to suppress CHECK note
-}
-
+# When the package loads
 .onAttach <- function (libname, pkgname) {
-#  if (!requireNamespace("knitr")) stop("Requires knitr package.")
+  # Redfine the 'stata' engine
   knitr::knit_engines$set(stata=stata_engine)
-#  packageStartupMessage("Stata engine redefined")
 
+  # Find the Stata executable
   stataexe <- find_stata()
   if (stataexe!="") {
     knitr::opts_chunk$set(engine.path=list(stata=stataexe))
   } else {
     packageStartupMessage("No Stata executable found.")
   }
-  knitr::opts_chunk$set(error=TRUE, cleanlog=TRUE, comment=NA, noisey=FALSE)
-#  packageStartupMessage("Chunk options optimized")
 
+  # Optimize chunk options
+  knitr::opts_chunk$set(error=TRUE, cleanlog=TRUE, comment=NA, noisy=FALSE)
+
+  # Hook to place collected chunk contents in a profile.do file
   stata_collectcode()
-#  packageStartupMessage("collectcode option defined")
-  assign("hook_orig", knitr::knit_hooks$get("output"), pos=2)
-  knitr::knit_hooks$set(output = stataoutputhook)
-#  packageStartupMessage("output for Stata redefined")
 
- # if (stataexe!="") {
-    packageStartupMessage("The 'stata' engine is ready to use.")
- # }
-
+  packageStartupMessage("The 'stata' engine is ready to use.")
 }

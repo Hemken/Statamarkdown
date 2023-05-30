@@ -1,8 +1,3 @@
-# unexported from 'knitr' version 1.26
-# author: Yihui Xie, 2019
-
-# hook_orig <- function(x, options) x
-
 # unexported from 'knitr' version 1.22
 # author: Yihui Xie
 
@@ -35,7 +30,14 @@ out_format = function(x) {
 
 `%n%` = function(x, y) if (is.null(x)) y else x
 
+# unexported from 'knitr' version 1.43 (where it is named 'one_string')
+# author: Yihui Xie
+
+single_string = function(x, ...) paste(x, ..., collapse = '\n')
+
 # unexported from 'highr' version 0.8
+# author: Yihui Xie
+
 spaces = function (n = 1, char = " ") {
     if (n <= 0)
         return("")

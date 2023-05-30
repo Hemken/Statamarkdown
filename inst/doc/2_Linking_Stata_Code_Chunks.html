@@ -339,7 +339,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Linking Code Blocks</h1>
 <h4 class="author">Doug Hemken</h4>
-<h4 class="date">Feb 2023</h4>
+<h4 class="date">May 2023</h4>
 
 
 
@@ -355,7 +355,6 @@ chunk.</p>
 <p>(If necessary, manually specify the Stata executable location.)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span></code></pre></div>
 <pre><code>Stata found at C:/Program Files/Stata17/StataSE-64.exe</code></pre>
-<pre><code>Found a &#39;sysprofile.do&#39;</code></pre>
 <pre><code>The &#39;stata&#39; engine is ready to use.</code></pre>
 </div>
 <div id="an-example" class="section level2">
@@ -371,9 +370,9 @@ generate gpm = 1/mpg
 summarize price gpm
 ```</code></pre>
 <p>Which looks like this in your document:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> gpm = 1/mpg</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> price gpm</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> gpm = 1/mpg</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> price gpm</span></code></pre></div>
 <pre><code>(1978 automobile data)
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
@@ -388,7 +387,7 @@ summarize price gpm
 regress price gpm
 ```</code></pre>
 <p>Which looks like this in your document:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> price gpm</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> price gpm</span></code></pre></div>
 <pre><code>      Source |       SS           df       MS      Number of obs   =        74
 -------------+----------------------------------   F(1, 72)        =     35.95
        Model |   211486574         1   211486574   Prob &gt; F        =    0.0000

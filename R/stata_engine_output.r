@@ -1,13 +1,13 @@
-stataoutputhook <- function(x, options) {
-    if (options$noisey==TRUE) {
+stata_engine_output <- function(x, options) {
+    if (options$noisy==TRUE) { # debugging option
       message(paste("\n", options$engine, "output from chunk", options$label))
-      message("input to stataoutputhook()")
+      message("input to stata_engine_output()")
       message(x)
       }
     x_noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", x)
     if (options$engine=="stata") {
       y <- strsplit(x_noprofile, "\n")[[1]]
-# print("input to stata output parse")
+# print("input to stata output parsing")
 # print(y)
 # Remove "running profile.do"
 running <- grep("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do", y)
@@ -59,8 +59,10 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
     } else {
       y <- x
     }
-# print("from stataoutputhook")
-# print(y)
-# Now treat the result as regular output
-    hook_orig(y, options)
+    if (options$noisy==TRUE) {
+      message("output from stata_engine_output()")
+      message(single_string(y))
+    }
+# Now return the result as a single character value
+    single_string(y)
 }
