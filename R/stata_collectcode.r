@@ -35,16 +35,29 @@ stata_collectcode <- function() {
             close(autoexec)
 #            print(sys.frames())
 #            print(sys.calls())
-        do.call("on.exit",
-            list(quote(unlink("profile.do")), add=TRUE),
-            envir = sys.frame(-9))
-        if (!is.null(oprofile)) {
+          if (utils::packageVersion('knitr') < '1.45') {
+              do.call("on.exit",
+                      list(quote(unlink("profile.do")), add=TRUE),
+                      envir = sys.frame(-9))
+            } else if (utils::packageVersion('knitr') >= '1.45') {
+              do.call("on.exit",
+                      list(quote(unlink("profile.do")), add=TRUE),
+                      envir = sys.frame(-10))
+            }
+
+        if (!is.null(oprofile)) { # replace the original "profile.do"
+          if (utils::packageVersion('knitr') < '1.45') {
             do.call("on.exit",
-                list(quote(writeLines(oprofile, "profile.do")), add=TRUE),
-                envir = sys.frame(-9))
-        }
+                    list(quote(writeLines(oprofile, "profile.do")), add=TRUE),
+                    envir = sys.frame(-9))
+          } else if (utils::packageVersion('knitr') >= '1.45') {
+            do.call("on.exit",
+                    list(quote(writeLines(oprofile, "profile.do")), add=TRUE),
+                    envir = sys.frame(-10))
+          }
             # sys.frame(1) or sys.frame(-10) is rmarkdown::render()
             # sys.frame(-9) is knitr::knit()
+        }
         }
     }
 })
