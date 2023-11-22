@@ -1,5 +1,6 @@
 stata_engine_output <- function(x, options) {
-    if (options$noisy==TRUE) { # debugging option
+# print(names(options))
+    if (!is.null(options$noisy) && options$noisy==TRUE) { # debugging option
       message(paste("\n", options$engine, "output from chunk", options$label))
       message("input to stata_engine_output()")
       message(x)
@@ -12,11 +13,14 @@ stata_engine_output <- function(x, options) {
 # Remove "running profile.do"
 running <- grep("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do", y)
 if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do","", y[running])}
-     # print("running removed")
+# message("running removed")
 # print(y)
       # Remove command echo in Stata log
-      if (length(options$cleanlog)==0 | options$cleanlog!=FALSE) {
+# print(as.character(c(is.null(options$cleanlog) || length(options$cleanlog)==0, "not set",
+                     # options$cleanlog!=FALSE, "not false")))
+      if ((is.null(options$cleanlog) || length(options$cleanlog)==0) || options$cleanlog==TRUE) {
         commandlines <- grep("^\\.[[:space:]]", y)
+# print("Raw command lines")
 # print(commandlines)
         if (length(commandlines)>0) {
           # loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
@@ -59,7 +63,7 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
     } else {
       y <- x
     }
-    if (options$noisy==TRUE) {
+    if (!is.null(options$noisy) && options$noisy==TRUE) {
       message("output from stata_engine_output()")
       message(single_string(y))
     }
