@@ -1,41 +1,40 @@
 stata_engine_output <- function(x, options) {
-# print(names(options))
     if (!is.null(options$noisy) && options$noisy==TRUE) { # debugging option
       message(paste("\n", options$engine, "output from chunk", options$label))
       message("input to stata_engine_output()")
       message(x)
       }
-    x_noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", x)
     if (options$engine=="stata") {
-      y <- strsplit(x_noprofile, "\n")[[1]]
-# print("input to stata output parsing")
-# print(y)
-# Remove "running profile.do"
-running <- grep("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do", y)
-if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:]].*profile.do","", y[running])}
-# message("running removed")
-# print(y)
+      # Remove "running profile ..." (including sysprofile)
+      #  Done as a single string because a deep folder path can create awkward line breaks
+      #  within the word "profile"
+      if (length(out) != 1) out = Statamarkdown:::single_string(out)
+      noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", out)
+      out <- unlist(strsplit(noprofile, "\n"))
+      # remove "end of do-file"
+      endofdofile <- grep("end of do-file", out)
+      out <- out[-endofdofile]
       # Remove command echo in Stata log
-# print(as.character(c(is.null(options$cleanlog) || length(options$cleanlog)==0, "not set",
-                     # options$cleanlog!=FALSE, "not false")))
       if ((is.null(options$cleanlog) || length(options$cleanlog)==0) || options$cleanlog==TRUE) {
-        commandlines <- grep("^\\.[[:space:]]", y)
-# print("Raw command lines")
-# print(commandlines)
+        y <- out
+
+        # Remove command lines
+        commandlines <- grep("^[[:space:]]?\\.[[:space:]]", y)
+        # Loop commands appear on more than one line, with line numbers
         if (length(commandlines)>0) {
-          # loopcommands <- grep("^[[:space:]][[:space:]][[:digit:]+]\\.", y)
           loopcommands <- grep("^[[:space:]]+[[:digit:]]+\\.", y)
-          if (length(commandlines)>0 && length(loopcommands)>0) {
+        }
+        if (length(commandlines)>0 && length(loopcommands)>0) {
           for (i in 1:length(loopcommands)) {
             if ((loopcommands[i]-1) %in% commandlines) {
               commandlines <- c(commandlines, loopcommands[i])
             }
           }
-          }
         }
-# print(commandlines)
-        continuations <- grep("^>[[:space:]]", y)
-#        print(y[continuations])
+        # Long command lines are wrapped, with an initial ">"
+        if (length(commandlines)>0) {
+          continuations <- grep("^>[[:space:]]", y)
+        }
         if (length(commandlines)>0 && length(continuations)>0) {
           for (i in 1:length(continuations)) {
             if ((continuations[i]-1) %in% commandlines) {
@@ -43,24 +42,24 @@ if (length(running)>0) {y[running] <- sub("^\\.?[[:space:]]?[R|r]unning[[:space:
             }
           }
         }
-# print(commandlines)
-# print("Stata command lines")
-# print(y[commandlines])
+        # remove
         if (length(commandlines)>0) {y <- y[-(commandlines)]}
 
-        # Some commands have a leading space?
+        # Some command lines have a leading space?
         if (length(grep("^[[:space:]*]\\.", y))>0) {
           y <- y[-(grep("^[[:space:]*]\\.", y))]
         }
       }
-      # Ensure a trailing blank line
+
+      # Ensure a trailing blank line for the document
       if (length(y)>0 && y[length(y)] != "") { y <- c(y, "") }
-# print("Command lines removed")
-# print(y)
-      # Remove blank lines at the top of the Stata log
+
+      # Remove blank lines at the top of any Stata log
       firsttext <- min(grep("[[:alnum:]]", y))
-      if (firsttext != Inf && firsttext != 1) {y <- y[-(1:(firsttext-1))]}
-    } else {
+      if (firsttext != Inf && firsttext != 1) {
+        y <- y[-(1:(firsttext-1))]
+        }
+    } else { # if it's not Stata ...
       y <- x
     }
     if (!is.null(options$noisy) && options$noisy==TRUE) {
