@@ -13,6 +13,12 @@ engine_output <- function (options, code, out, extra = NULL) {
   out = sub("([^\n]+)", "\\1\n", out)
   if (options$engine == "stata") {
       out = stata_engine_output(out, options)
+      if (!is.null(options$nocommands)) options$echo=FALSE
+      if (!is.null(options$nooutput)) options$results='hide'
+      if (!is.null(options$quietly)) {
+        options$echo=FALSE
+        options$results="hide"
+      }
   }
   single_string(c(if (length(options$echo) > 1 || options$echo) (knitr::knit_hooks$get("source"))(code, options),
                   if (options$results != "hide" && !xfun::is_blank(out)) {

@@ -3,22 +3,24 @@ stata_engine_output <- function(x, options) {
       message(paste("\n", options$engine, "output from chunk", options$label))
       message("input to stata_engine_output()")
       message(x)
-      }
-    if (options$engine=="stata") {
+    }
+
+  if (options$engine=="stata" && (length(options$eval) > 1 || options$eval!=FALSE)) {
       # Remove "running profile ..." (including sysprofile)
       #  Done as a single string because a deep folder path can create awkward line breaks
       #  within the word "profile"
-      if (length(out) != 1) out = Statamarkdown:::single_string(out)
-      noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", out)
-      out <- unlist(strsplit(noprofile, "\n"))
+      if (length(x) != 1) x = Statamarkdown:::single_string(x)
+      noprofile <- sub("^.*[R|r]unning[[:space:]].*p(\\\n>[[:space:]])?r(\\\n>[[:space:]])?o(\\\n>[[:space:]])?f(\\\n>[[:space:]])?i(\\\n>[[:space:]])?l(\\\n>[[:space:]])?e(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?d(\\\n>[[:space:]])?o(\\\n>[[:space:]])?[[:space:]](\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.(\\\n>[[:space:]])?\\.[[:space:]]?[[:space:]]?", "", x)
+      x <- unlist(strsplit(noprofile, "\n"))
       # remove "end of do-file"
-      endofdofile <- grep("end of do-file", out)
-      out <- out[-endofdofile]
+      endofdofile <- grep("end of do-file", x)
+      x <- x[-endofdofile]
+      y <- x
+
       # Remove command echo in Stata log
       if ((is.null(options$cleanlog) || length(options$cleanlog)==0) || options$cleanlog==TRUE) {
-        y <- out
 
-        # Remove command lines
+        # Find command lines
         commandlines <- grep("^[[:space:]]?\\.[[:space:]]", y)
         # Loop commands appear on more than one line, with line numbers
         if (length(commandlines)>0) {
