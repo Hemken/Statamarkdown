@@ -12,7 +12,7 @@ find_stata <- function(message=TRUE) {
             dvf <- paste(paste(dv, f, sep="/"), "exe", sep=".")
             if (file.exists(dvf)) {
               stataexe <- dvf
-              if (message) message("Stata found at ", stataexe)
+              if (message) packageStartupMessage("Stata found at ", stataexe)
             }
             if (stataexe != "") break
           }
@@ -30,7 +30,7 @@ find_stata <- function(message=TRUE) {
         dvf <- paste(paste(paste(dv, f, sep="/"), "app", sep="."), "Contents/MacOS", f, sep="/")
         if (file.exists(dvf)) {
           stataexe <- dvf
-          if (message) message("Stata found at ", stataexe)
+          if (message) packageStartupMessage("Stata found at ", stataexe)
         }
         if (stataexe != "") break
       }
@@ -40,7 +40,7 @@ find_stata <- function(message=TRUE) {
     for (f in c("stata-mp", "stata-se", "stata", "stata-ic")) {
       stataexe <- Sys.which(f)[[f]]
       if (stataexe != '') {
-        if (message) message("Stata found at ", stataexe)
+        if (message) packageStartupMessage("Stata found at ", stataexe)
       }
       else
         for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin",
@@ -49,7 +49,7 @@ find_stata <- function(message=TRUE) {
           df <- paste(d, f, sep="/")
           if (file.exists(df)) {
             stataexe <- df
-            if (message) message("Stata found at ", stataexe)
+            if (message) packageStartupMessage("Stata found at ", stataexe)
           }
           if (stataexe != "") break
         }

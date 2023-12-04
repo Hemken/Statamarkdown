@@ -1,5 +1,4 @@
-
-# When the package loads
+# deprecated in factor of .onLoad
 # .onAttach <- function (libname, pkgname) {
 #   # Redfine the 'stata' engine
 #   knitr::knit_engines$set(stata=stata_engine)
@@ -21,6 +20,7 @@
 #   packageStartupMessage("The 'stata' engine is ready to use.")
 # }
 
+# When the package loads
 .onLoad <- function (libname, pkgname) {
   # Redfine the 'stata' engine
   knitr::knit_engines$set(stata=stata_engine)
