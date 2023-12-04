@@ -1,3 +1,4 @@
+# When the package loads
 .onAttach <- function (libname, pkgname) {
   # Redfine the 'stata' engine
   knitr::knit_engines$set(stata=stata_engine)
