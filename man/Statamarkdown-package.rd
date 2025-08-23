@@ -101,7 +101,7 @@ More documentation and examples:
 \url{https://www.ssc.wisc.edu/~hemken/Stataworkshops/stata.html#stata-and-r-markdown}
 }
 \seealso{
-The package that this extends: \pkg{\link{knitr-package}}.
+The package that this extends: \pkg{\link[knitr:knitr-package]{knitr-package}}.
 }
 \author{
 Doug Hemken

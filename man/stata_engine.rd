@@ -40,7 +40,7 @@ Doug Hemken
 }
 
 \seealso{
-\code{\link{knit_engines}}
+\code{\link[knitr:knit_engines]{knitr:knit_engines}}
 }
 \examples{
 
