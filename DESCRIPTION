@@ -7,7 +7,7 @@ Imports: knitr (>= 1.43), xfun (>= 0.39)
 Suggests: rmarkdown
 SystemRequirements: Stata
 Authors@R: c(
-  person("Doug", "Hemken", email="dehemken@wisc.edu", 
+  person("Doug", "Hemken", email="d_hemken@yahoo.com", 
     role=c("aut", "cre"), comment="SSCC, Univ. of Wisconsin-Madison (retired)"),
   person("Tom", "Palmer", role = "ctb", comment="MacOS, linux"),
   person("Philipp", "Lepert", role = "ctb")
