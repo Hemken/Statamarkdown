@@ -1,22 +1,21 @@
 find_stata <- function(message=TRUE) {
   stataexe <- ""
-  # if (.Platform$OS.type == "windows"){
-    if (message) packageStartupMessage("OS : Windows")
+  if (.Platform$OS.type == "windows"){
+# if (message) packageStartupMessage("OS : Windows")
 #  stataexe <- NULL
   for (d in c("C:/Program Files","C:/Program Files (x86)")) {
     if (stataexe=="" & dir.exists(d)) {
-      # if (message) packageStartupMessage("trying : ", d)
+# if (message) packageStartupMessage("trying : ", d)
       for (v in seq(19,11,-1)) {
         for (dirstub in c("Stata", "StataNow")){
           dv <- paste(d, paste0(dirstub,v), sep="/")
           if (dir.exists(dv)) {
-            # if (message) packageStartupMessage("trying : ", dv)
+# if (message) packageStartupMessage("trying : ", dv)
             for (f in c("Stata", "StataIC", "StataSE", "StataMP", "StataBE",
                         "Stata-64", "StataIC-64", "StataSE-64", "StataMP-64", "StataBE-64")) {
               dvf <- paste(paste(dv, f, sep="/"), "exe", sep=".")
-              if (message) packageStartupMessage("trying : ", dvf)
               if (file.exists(dvf)) {
-                # if (message) packageStartupMessage("trying : ", dvf)
+# if (message) packageStartupMessage("trying : ", dvf)
                 stataexe <- dvf
                 if (message) packageStartupMessage("Stata found at ", stataexe)
               }
@@ -28,7 +27,7 @@ find_stata <- function(message=TRUE) {
       }
     }
     if (stataexe != "") break
-  }
+}
   } else if (Sys.info()["sysname"]=="Darwin") {
 #    stataexe <- NULL
     dv <- "/Applications/Stata"
