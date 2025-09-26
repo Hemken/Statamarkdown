@@ -30,7 +30,8 @@ find_stata <- function(message=TRUE) {
 }
   } else if (Sys.info()["sysname"]=="Darwin") {
 #    stataexe <- NULL
-    dv <- "/Applications/Stata"
+    dvstub <- c("/Applications/StataNow", "/Applications/Stata")
+    for (dv in dvstub) {
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP", "StataIC", "StataBE")) {
         dvf <- paste(paste(paste(dv, f, sep="/"), "app", sep="."), "Contents/MacOS", f, sep="/")
@@ -40,6 +41,7 @@ find_stata <- function(message=TRUE) {
         }
         if (stataexe != "") break
       }
+    }
     }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
