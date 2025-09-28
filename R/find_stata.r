@@ -7,7 +7,7 @@ find_stata <- function(message=TRUE) {
     if (stataexe=="" & dir.exists(d)) {
 # if (message) packageStartupMessage("trying : ", d)
       for (v in seq(19,11,-1)) {
-        for (dirstub in c("Stata", "StataNow")){
+        for (dirstub in c("Stata", "StataNow", "StataNow19")){
           dv <- paste(d, paste0(dirstub,v), sep="/")
           if (dir.exists(dv)) {
 # if (message) packageStartupMessage("trying : ", dv)
