@@ -52,7 +52,7 @@ find_stata <- function(message=TRUE) {
       }
       else
         for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin",
-                    "/usr/local/stata19", "/usr/local/stata18", "/usr/local/stata17", "/usr/local/stata16",
+                    "/usr/local/statanow19", "/usr/local/stata19", "/usr/local/stata", "/usr/local/stata18", "/usr/local/stata17", "/usr/local/stata16",
                     "/usr/local/stata15")) {
           df <- paste(d, f, sep="/")
           if (file.exists(df)) {
