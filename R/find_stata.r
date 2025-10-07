@@ -7,7 +7,7 @@ find_stata <- function(message=TRUE) {
     if (stataexe=="" & dir.exists(d)) {
 # if (message) packageStartupMessage("trying : ", d)
       for (v in seq(19,11,-1)) {
-        for (dirstub in c("Stata", "StataNow")){
+        for (dirstub in c("Stata", "StataNow", "StataNow19")){
           dv <- paste(d, paste0(dirstub,v), sep="/")
           if (dir.exists(dv)) {
 # if (message) packageStartupMessage("trying : ", dv)
@@ -30,7 +30,8 @@ find_stata <- function(message=TRUE) {
 }
   } else if (Sys.info()["sysname"]=="Darwin") {
 #    stataexe <- NULL
-    dv <- "/Applications/Stata"
+    dvstub <- c("/Applications/StataNow", "/Applications/Stata")
+    for (dv in dvstub) {
     if (dir.exists(dv)) {
       for (f in c("Stata", "StataSE", "StataMP", "StataIC", "StataBE")) {
         dvf <- paste(paste(paste(dv, f, sep="/"), "app", sep="."), "Contents/MacOS", f, sep="/")
@@ -41,6 +42,7 @@ find_stata <- function(message=TRUE) {
         if (stataexe != "") break
       }
     }
+    }
   } else if (.Platform$OS.type == "unix") {
 #      stataexe <- NULL
     for (f in c("stata-mp", "stata-se", "stata", "stata-ic")) {
@@ -50,7 +52,7 @@ find_stata <- function(message=TRUE) {
       }
       else
         for (d in c("/software/stata", "/usr/local/sbin", "/usr/local/bin", "/usr/sbin",
-                    "/usr/local/stata19", "/usr/local/stata18", "/usr/local/stata17", "/usr/local/stata16",
+                    "/usr/local/statanow19", "/usr/local/stata19", "/usr/local/stata", "/usr/local/stata18", "/usr/local/stata17", "/usr/local/stata16",
                     "/usr/local/stata15")) {
           df <- paste(d, f, sep="/")
           if (file.exists(df)) {
