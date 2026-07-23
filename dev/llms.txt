@@ -1,0 +1,63 @@
+# Statamarkdown
+
+This is a collection of R functions that extends knitr’s capability for
+using Stata as a language engine. They have no use if you do not also
+have Stata installed.
+
+You can install this as an R package from CRAN:
+
+``` r
+
+install.packages("Statamarkdown")
+```
+
+or from GitHub:
+
+    remotes::install_github("Hemken/Statamarkdown")
+
+You can check your installation with
+
+    library(Statamarkdown)
+    example("stata_engine", package="Statamarkdown")
+
+If the package was installed, you should see an example created in a
+temporary directory.
+
+Additional documentation can be found at
+<https://www.ssc.wisc.edu/~hemken/Stataworkshops/Statamarkdown/stata-and-r-markdown.html>
+.
+
+If you would like to contribute to this project, please “fork” it on
+GitHub and then clone it back to your computer. Make your changes and
+enhancements, push them back to your GitHub repository, then initiate a
+“pull” request.
+
+You are also welcome to open issues, or email me directly.
+
+# Package index
+
+## All functions
+
+- [`Statamarkdown`](https://hemken.github.io/Statamarkdown/dev/reference/Statamarkdown-package.md)
+  [`Statamarkdown-package`](https://hemken.github.io/Statamarkdown/dev/reference/Statamarkdown-package.md)
+  : Statamarkdown: Settings and functions to extend the knitr Stata
+  engine
+- [`find_stata()`](https://hemken.github.io/Statamarkdown/dev/reference/find_stata.md)
+  : Locate the Stata executable
+- [`purl_stata()`](https://hemken.github.io/Statamarkdown/dev/reference/purl_stata.md)
+  : Extract Stata code from a dynamic document
+- [`spinstata()`](https://hemken.github.io/Statamarkdown/dev/reference/spinstata.md)
+  : Convert a specially marked up Stata "do" file to Markdown and HTML
+- [`stata_engine()`](https://hemken.github.io/Statamarkdown/dev/reference/stata_engine.md)
+  : Define a Stata engine for knitr
+
+# Articles
+
+### All vignettes
+
+- [Basic Use of
+  Statamarkdown](https://hemken.github.io/Statamarkdown/dev/articles/basicuse.md):
+- [Linking Code
+  Blocks](https://hemken.github.io/Statamarkdown/dev/articles/linkblocks.md):
+- [Combining Stata and
+  R](https://hemken.github.io/Statamarkdown/dev/articles/randstata.md):
