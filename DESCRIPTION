@@ -1,6 +1,6 @@
 Package: Statamarkdown
 Title: 'Stata' Markdown
-Version: 0.9.7.9000
+Version: 1.0.0
 Authors@R: c(
     person("Doug", "Hemken", , "d_hemken@yahoo.com", role = "aut",
            comment = "SSCC, Univ. of Wisconsin-Madison (retired)"),

@@ -1,4 +1,4 @@
-# Statamarkdown (development version)
+# Statamarkdown 1.0.0
 
 * Rendering several documents in one R session now works: knitr restores the chunk options and knit hooks after each document, which left the second document without the Stata executable path (failing with "error in running command") and without the `collectcode` hook. The engine now falls back to the executable located when the package was attached, and re-registers the hook, so it is no longer necessary to `detach("package:Statamarkdown")` between documents.
 * New chunk option `stata.fig=TRUE`: exports the graph drawn by a Stata chunk and includes it in the output document. The figure goes through knitr's standard plot machinery, so `fig.cap`, `fig.alt` (alternative text, for accessibility), `out.width`, `out.height`, `fig.align`, `fig.link` and `fig.path` all work as for R chunks. The export format is set with `stata.fig.format` (default `"svg"`, which Stata batch mode supports on all platforms). In Rmd and Quarto documents the hyphenated spellings `stata-fig` and `stata-fig-format` are also accepted when using YAML style chunk options. (thanks @kylebutts in #28)
