@@ -1,3 +1,5 @@
+build: docs
+    Rscript -e "devtools::build()"
 check: docs
     R -e "devtools::check()"
 docs:
