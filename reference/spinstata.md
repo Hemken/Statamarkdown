@@ -1,4 +1,4 @@
-# Convert a specially marked up Stata "do" file to Markdown and HTML.
+# Convert a specially marked up Stata "do" file to Markdown and HTML
 
 This function takes a Stata file containing special markup in its
 comments, and converts it to Markdown and HTML documents (or one of
@@ -7,7 +7,7 @@ several other formats).
 ## Usage
 
 ``` r
-spinstata(statafile, text=NULL, keep=FALSE, ...)
+spinstata(statafile, text = NULL, keep = FALSE, ...)
 ```
 
 ## Arguments
@@ -30,6 +30,13 @@ spinstata(statafile, text=NULL, keep=FALSE, ...)
   options passed to
   [`knitr::spin`](https://rdrr.io/pkg/knitr/man/spin.html)
 
+## Value
+
+The path to the output file.
+
+If given text instead of a file, returns the compiled document as a
+character string.
+
 ## Details
 
 This function takes a Stata file containing special markup in its
@@ -47,25 +54,17 @@ Special Markup:
 
 - `"/** "` - Dropped from document, ends with `"*/*"`
 
-## Value
+## See also
 
-The path to the output file.
-
-If given text instead of a file, returns the compiled document as a
-character string.
+[Statamarkdown-package](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
 
 ## Author
 
 Doug Hemken
 
-## See also
-
-[`Statamarkdown-package`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
-
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 indoc <- "/*'
 # Statamarkdown Example
 
@@ -89,11 +88,24 @@ R*/
 
 /*' You can use the ***usual*** Markdown to mark up text.'*/
 "
-if (nzchar(Statamarkdown::find_stata())) {
+if (nzchar(Statamarkdown::find_stata()) &&
+    requireNamespace("markdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
   fhtml <- file.path(tempdir(), "test.html")
-  x<-Statamarkdown::spinstata(text=indoc)
+  # Spin in a fresh R process, so that stale knitr state in a
+  # long-running session (e.g. from RStudio's "Run examples" button)
+  # cannot interfere with how the document text is parsed.
+  x <- xfun::Rscript_call(
+    function(indoc) Statamarkdown::spinstata(text = indoc),
+    args = list(indoc)
+  )
   writeLines(x, fhtml)
+  message("HTML output created at: ", fhtml)
+  if (interactive()) {
+    # Show in the RStudio Viewer pane if available, otherwise the browser
+    viewer <- getOption("viewer", default = utils::browseURL)
+    viewer(fhtml)
+  }
 }
-} # }
+#> No Stata executable found.
 ```

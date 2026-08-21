@@ -10,7 +10,9 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Basic Use of Statamarkdown">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="basicuse_files/libs/quarto-html/popper.min.js"></script><script src="basicuse_files/libs/quarto-html/tippy.umd.min.js"></script><link href="basicuse_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="basicuse_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Basic Use of Statamarkdown">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Statamarkdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,74 +61,57 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Basic Use of Statamarkdown</h1>
-                        <h4 data-toc-skip class="author">Doug
-Hemken</h4>
-            
-            <h4 data-toc-skip class="date">Jul 2026</h4>
-      
-      <small class="dont-index">Source: <a href="https://github.com/Hemken/Statamarkdown/blob/HEAD/vignettes/basicuse.rmd" class="external-link"><code>vignettes/basicuse.rmd</code></a></small>
-      <div class="d-none name"><code>basicuse.rmd</code></div>
+
+      <p class="author">Doug Hemken</p>
+      <p class="date">2026-07-01</p>
+
+      <small class="dont-index">Source: <a href="https://github.com/Hemken/Statamarkdown/blob/master/vignettes/basicuse.qmd" class="external-link"><code>vignettes/basicuse.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>This discussion assumes you already have a basic understanding of
-Markdown for document formatting, Rmarkdown to include executable code
-in a document, and Stata to write the code.</p>
-<div class="section level2">
-<h2 id="first-attach-the-statamarkdown-library">First attach the <code>Statamarkdown</code> library<a class="anchor" aria-label="anchor" href="#first-attach-the-statamarkdown-library"></a>
+
+
+
+
+
+    <p>This discussion assumes you already have a basic understanding of Markdown for document formatting, Rmarkdown to include executable code in a document, and Stata to write the code.</p>
+<section class="level2"><h2 id="first-attach-the-statamarkdown-library">First attach the <code>Statamarkdown</code> library<a class="anchor" aria-label="anchor" href="#first-attach-the-statamarkdown-library"></a>
 </h2>
 <p>Your first code chunk will look something like this:</p>
-<pre><code>```{r library}
-library(Statamarkdown)
-```</code></pre>
-<p>This will either report that Stata was found, or that you need to
-specify its location yourself.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r library}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Statamarkdown)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+<p>This will either report that Stata was found, or that you need to specify its location yourself.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Hemken/Statamarkdown/" class="external-link">Statamarkdown</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Stata found at /Applications/StataNow/StataMP.app/Contents/MacOS/StataMP</span></span></code></pre>
 <pre><code><span><span class="co">## The 'stata' engine is ready to use.</span></span></code></pre>
-<p>You can hide all of this so it does not appear in your final document
-by using the <code>include=FALSE</code> chunk options.</p>
-</div>
-<div class="section level2">
-<h2 id="if-stata-was-not-found">If Stata was not found<a class="anchor" aria-label="anchor" href="#if-stata-was-not-found"></a>
+<p>You can hide all of this so it does not appear in your final document by using the <code>include=FALSE</code> chunk options.</p>
+</section><section class="level2"><h2 id="if-stata-was-not-found">If Stata was not found<a class="anchor" aria-label="anchor" href="#if-stata-was-not-found"></a>
 </h2>
-<p>You will need to specify this yourself, as additional lines in the
-"library" code block above.</p>
+<p>You will need to specify this yourself, as additional lines in the "library" code block above.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">stataexe</span> <span class="op">&lt;-</span> <span class="st">"C:/Program Files/Stata18/StataSE-64.exe"</span> <span class="co"># Windows</span></span>
 <span><span class="co"># stataexe &lt;- "/Applications/Stata/StataSE.app/Contents/MacOS/StataSE" # Mac OS</span></span>
 <span><span class="co"># stataexe &lt;- "/usr/local/stata18/stata-se" # Unix</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>engine.path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>stata <span class="op">=</span> <span class="va">stataexe</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>If you do not know where to find your Stata executable (app), open
-Stata and issue the command <code>sysdir</code>. The line labeled
-<code>STATA:</code> is the folder where your Stata executable is
-located. You can browse there with your computer's file explorer to see
-the actual file name of the Stata executable, which varies by operating
-system, Stata version, and Stata flavor.</p>
+<p>If you do not know where to find your Stata executable (app), open Stata and issue the command <code>sysdir</code>. The line labeled <code>STATA:</code> is the folder where your Stata executable is located. You can browse there with your computer's file explorer to see the actual file name of the Stata executable, which varies by operating system, Stata version, and Stata flavor.</p>
 <p>Then make the Stata executable path a default chunk option.</p>
-</div>
-<div class="section level2">
-<h2 id="then-set-up-stata-code-chunks-">Then set up Stata code chunks.<a class="anchor" aria-label="anchor" href="#then-set-up-stata-code-chunks-"></a>
+</section><section class="level2"><h2 id="then-set-up-stata-code-chunks-">Then set up Stata code chunks.<a class="anchor" aria-label="anchor" href="#then-set-up-stata-code-chunks-"></a>
 </h2>
 <p>A simple code chunk in Rmarkdown might look like:</p>
-<pre><code>```{stata example}
-sysuse auto
-summarize
-```</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{stata example}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">sysuse auto</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">summarize</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
 <p>And in your document this would produce:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">sysuse</span> auto</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="kw">summarize</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sysuse</span> auto</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span></span></code></pre></div>
 <pre><code>(1978 automobile data)
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
@@ -145,11 +130,92 @@ displacement |         74    197.2973    91.83722         79        425
 -------------+---------------------------------------------------------
   gear_ratio |         74    3.014865    .4562871       2.19       3.89
      foreign |         74    .2972973    .4601885          0          1</code></pre>
-</div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">

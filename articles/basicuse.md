@@ -8,9 +8,11 @@ in a document, and Stata to write the code.
 
 Your first code chunk will look something like this:
 
-    ```{r library}
-    library(Statamarkdown)
-    ```
+```` markdown
+```{r library}
+library(Statamarkdown)
+```
+````
 
 This will either report that Stata was found, or that you need to
 specify its location yourself.
@@ -53,10 +55,12 @@ Then make the Stata executable path a default chunk option.
 
 A simple code chunk in Rmarkdown might look like:
 
-    ```{stata example}
-    sysuse auto
-    summarize
-    ```
+```` markdown
+```{stata example}
+sysuse auto
+summarize
+```
+````
 
 And in your document this would produce:
 

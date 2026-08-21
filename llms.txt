@@ -13,12 +13,18 @@ install.packages("Statamarkdown")
 
 or from GitHub:
 
-    remotes::install_github("Hemken/Statamarkdown")
+``` r
+
+remotes::install_github("Hemken/Statamarkdown")
+```
 
 You can check your installation with
 
-    library(Statamarkdown)
-    example("stata_engine", package="Statamarkdown")
+``` r
+
+library(Statamarkdown)
+example("stata_engine", package="Statamarkdown")
+```
 
 If the package was installed, you should see an example created in a
 temporary directory.
@@ -38,20 +44,17 @@ You are also welcome to open issues, or email me directly.
 
 ## All functions
 
-- [`Statamarkdown-package`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.rd)
-  [`Statamarkdown`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.rd)
-  : Settings and functions to extend the knitr Stata engine.
-
+- [`Statamarkdown`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
+  [`Statamarkdown-package`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
+  : Statamarkdown: Settings and functions to extend the knitr Stata
+  engine
 - [`find_stata()`](https://hemken.github.io/Statamarkdown/reference/find_stata.md)
-  :
-
-  A helper function that seeks to locate your Stata executable.
-  Ordinarily this is run automatically when Statamarkdown is loaded.
-
+  : Locate the Stata executable
+- [`purl_stata()`](https://hemken.github.io/Statamarkdown/reference/purl_stata.md)
+  : Extract Stata code from a dynamic document
 - [`spinstata()`](https://hemken.github.io/Statamarkdown/reference/spinstata.md)
-  : Convert a specially marked up Stata "do" file to Markdown and HTML.
-
-- [`stata_engine()`](https://hemken.github.io/Statamarkdown/reference/stata_engine.rd)
+  : Convert a specially marked up Stata "do" file to Markdown and HTML
+- [`stata_engine()`](https://hemken.github.io/Statamarkdown/reference/stata_engine.md)
   : Define a Stata engine for knitr
 
 # Articles

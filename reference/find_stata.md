@@ -1,15 +1,12 @@
-# A helper function that seeks to locate your Stata executable. Ordinarily this is run automatically when Statamarkdown is loaded.
+# Locate the Stata executable
 
-This function searches for recent versions of Stata (\>= Stata 11), in
-some of the usual default installation locations.
-
-If Stata is not found, you will have to specify its correct location
-yourself.
+A helper function that seeks to locate your Stata executable. Ordinarily
+this is run automatically when Statamarkdown is loaded.
 
 ## Usage
 
 ``` r
-find_stata(message=TRUE)
+find_stata(message = TRUE)
 ```
 
 ## Arguments
@@ -22,13 +19,21 @@ find_stata(message=TRUE)
 
 A character string with the path and name of the Stata executable.
 
-## Author
+## Details
 
-Doug Hemken
+This function searches for recent versions of Stata (\>= Stata 11), in
+some of the usual default installation locations.
+
+If Stata is not found, you will have to specify its correct location
+yourself.
 
 ## See also
 
-[`Statamarkdown-package`](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
+[Statamarkdown-package](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
+
+## Author
+
+Doug Hemken
 
 ## Examples
 
@@ -48,21 +53,28 @@ summarize price gpm
 ```
 '
 
-if (nzchar(Statamarkdown::find_stata())) {
+if (nzchar(Statamarkdown::find_stata()) &&
+    requireNamespace("rmarkdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
-  fmd <- file.path(tempdir(), "test.md")
+  frmd <- file.path(tempdir(), "test.Rmd")
   fhtml <- file.path(tempdir(), "test.html")
 
-  knitr::knit(text=indoc, output=fmd)
-  rmarkdown::render(fmd, "html_document", fhtml)
+  # Knit and render in a fresh R process, so that stale knitr state in a
+  # long-running session (e.g. from RStudio's "Run examples" button)
+  # cannot interfere with how the document text is parsed.
+  xfun::Rscript_call(
+    function(indoc, frmd, fhtml) {
+      writeLines(indoc, frmd)
+      rmarkdown::render(frmd, "html_document", fhtml)
+    },
+    args = list(indoc, frmd, fhtml)
+  )
+  message("HTML output created at: ", fhtml)
+  if (interactive()) {
+    # Show in the RStudio Viewer pane if available, otherwise the browser
+    viewer <- getOption("viewer", default = utils::browseURL)
+    viewer(fhtml)
+  }
 }
-#> Stata found at /Applications/StataNow/StataMP.app/Contents/MacOS/StataMP
-#> 1/5                  
-#> 2/5 [unnamed-chunk-1]
-#> 3/5                  
-#> 4/5 [unnamed-chunk-2]
-#> 5/5                  
-#> /opt/homebrew/bin/pandoc +RTS -K512m -RTS test.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /var/folders/kt/7xskrb1n4_x2jkd9lt0rhybh0000gp/T//Rtmp7tOL6T/test.html --lua-filter /Users/eptmp/Library/R/arm64/4.6/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Users/eptmp/Library/R/arm64/4.6/library/rmarkdown/rmarkdown/lua/latex-div.lua --lua-filter /Users/eptmp/Library/R/arm64/4.6/library/rmarkdown/rmarkdown/lua/table-classes.lua --embed-resources --standalone --variable bs3=TRUE --section-divs --template /Users/eptmp/Library/R/arm64/4.6/library/rmarkdown/rmd/h/default.html --syntax-highlighting none --variable highlightjs=1 --variable theme=bootstrap --mathjax --variable 'mathjax-url=https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --include-in-header /var/folders/kt/7xskrb1n4_x2jkd9lt0rhybh0000gp/T//Rtmp7tOL6T/rmarkdown-str915a5fe9b5ef.html 
-#> 
-#> Output created: /var/folders/kt/7xskrb1n4_x2jkd9lt0rhybh0000gp/T//Rtmp7tOL6T/test.html
+#> No Stata executable found.
 ````

@@ -13,12 +13,18 @@ install.packages("Statamarkdown")
 
 or from GitHub:
 
-    remotes::install_github("Hemken/Statamarkdown")
+``` r
+
+remotes::install_github("Hemken/Statamarkdown")
+```
 
 You can check your installation with
 
-    library(Statamarkdown)
-    example("stata_engine", package="Statamarkdown")
+``` r
+
+library(Statamarkdown)
+example("stata_engine", package="Statamarkdown")
+```
 
 If the package was installed, you should see an example created in a
 temporary directory.

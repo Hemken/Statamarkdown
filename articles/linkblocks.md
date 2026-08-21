@@ -32,11 +32,7 @@ the new variable.
 
 In the first code chunk, use the `collectcode` option.
 
-    ```{stata first-Stata, collectcode=TRUE}
-    sysuse auto, clear
-    generate gpm = 1/mpg
-    summarize price gpm
-    ```
+`{stata first-Stata, collectcode=TRUE} sysuse auto, clear generate gpm = 1/mpg summarize price gpm`
 
 Which looks like this in your document:
 
@@ -57,9 +53,11 @@ summarize price gpm
 
 Then you can use the data and the new variable in a later code chunk.
 
-    ```{stata second-Stata}
-    regress price gpm
-    ```
+```` markdown
+```{stata second-Stata}
+regress price gpm
+```
+````
 
 Which looks like this in your document:
 
