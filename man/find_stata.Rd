@@ -7,8 +7,8 @@
 find_stata(message = TRUE)
 }
 \arguments{
-\item{message}{(logical) Whether or not to print a message
-when Stata is found.}
+\item{message}{(logical) Whether or not to print messages: where
+Stata was found, or that no Stata executable could be found.}
 }
 \value{
 A character string with the path and name of the Stata executable.
@@ -40,7 +40,7 @@ summarize price gpm
 ```
 '
 
-if (nzchar(Statamarkdown::find_stata()) &&
+if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
     requireNamespace("rmarkdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
   frmd <- file.path(tempdir(), "test.Rmd")
