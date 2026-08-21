@@ -9,8 +9,8 @@
 #' If Stata is not found, you will have to specify its
 #' correct location yourself.
 #'
-#' @param message (logical) Whether or not to print a message
-#'   when Stata is found.
+#' @param message (logical) Whether or not to print messages: where
+#'   Stata was found, or that no Stata executable could be found.
 #'
 #' @return A character string with the path and name of the Stata executable.
 #'
@@ -36,7 +36,7 @@
 #' ```
 #' '
 #'
-#' if (nzchar(Statamarkdown::find_stata()) &&
+#' if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
 #'     requireNamespace("rmarkdown", quietly = TRUE)) {
 #'   # To run this example, remove tempdir().
 #'   frmd <- file.path(tempdir(), "test.Rmd")
@@ -127,7 +127,7 @@ find_stata <- function(message=TRUE) {
     # also cache the path for the whole session, since knitr restores
     # the engine.path chunk option when a knit finishes
     .statamarkdown$stataexe <- stataexe
-  } else {
+  } else if (message) {
     packageStartupMessage("No Stata executable found.")
   }
   return(stataexe)
