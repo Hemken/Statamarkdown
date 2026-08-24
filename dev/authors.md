@@ -17,12 +17,12 @@ Source:
 [`DESCRIPTION`](https://github.com/Hemken/Statamarkdown/blob/master/DESCRIPTION)
 
 Hemken D, Palmer T (2026). *Statamarkdown: 'Stata' Markdown*. R package
-version 0.9.7.9000, <https://github.com/Hemken/Statamarkdown/>.
+version 1.0.0.9000, <https://github.com/Hemken/Statamarkdown/>.
 
     @Manual{,
       title = {Statamarkdown: 'Stata' Markdown},
       author = {Doug Hemken and Tom Palmer},
       year = {2026},
-      note = {R package version 0.9.7.9000},
+      note = {R package version 1.0.0.9000},
       url = {https://github.com/Hemken/Statamarkdown/},
     }

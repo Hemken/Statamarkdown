@@ -2,6 +2,16 @@
 
 ## Statamarkdown (development version)
 
+- `find_stata(message = FALSE)` is now silent when no Stata executable
+  is found; previously the “No Stata executable found.” message was
+  printed whatever the value of `message`. The help file examples use
+  this, so the reference pages of the pkgdown site, which is built
+  without Stata, no longer end with that message.
+
+## Statamarkdown 1.0.0
+
+CRAN release: 2026-08-21
+
 - Rendering several documents in one R session now works: knitr restores
   the chunk options and knit hooks after each document, which left the
   second document without the Stata executable path (failing with “error

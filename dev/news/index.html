@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Statamarkdown</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.7.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="statamarkdown-development-version">Statamarkdown (development version)<a class="anchor" aria-label="anchor" href="#statamarkdown-development-version"></a></h2>
+<ul><li>
+<code>find_stata(message = FALSE)</code> is now silent when no Stata executable is found; previously the “No Stata executable found.” message was printed whatever the value of <code>message</code>. The help file examples use this, so the reference pages of the pkgdown site, which is built without Stata, no longer end with that message.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="statamarkdown-100">Statamarkdown 1.0.0<a class="anchor" aria-label="anchor" href="#statamarkdown-100"></a></h2><p class="text-muted">CRAN release: 2026-08-21</p>
 <ul><li>Rendering several documents in one R session now works: knitr restores the chunk options and knit hooks after each document, which left the second document without the Stata executable path (failing with “error in running command”) and without the <code>collectcode</code> hook. The engine now falls back to the executable located when the package was attached, and re-registers the hook, so it is no longer necessary to <code>detach("package:Statamarkdown")</code> between documents.</li>
 <li>New chunk option <code>stata.fig=TRUE</code>: exports the graph drawn by a Stata chunk and includes it in the output document. The figure goes through knitr’s standard plot machinery, so <code>fig.cap</code>, <code>fig.alt</code> (alternative text, for accessibility), <code>out.width</code>, <code>out.height</code>, <code>fig.align</code>, <code>fig.link</code> and <code>fig.path</code> all work as for R chunks. The export format is set with <code>stata.fig.format</code> (default <code>"svg"</code>, which Stata batch mode supports on all platforms). In Rmd and Quarto documents the hyphenated spellings <code>stata-fig</code> and <code>stata-fig-format</code> are also accepted when using YAML style chunk options. (thanks <a href="https://github.com/kylebutts" class="external-link">@kylebutts</a> in <a href="https://github.com/Hemken/Statamarkdown/issues/28" class="external-link">#28</a>)</li>
 <li>New function <code><a href="../reference/purl_stata.html">purl_stata()</a></code>, the Stata analogue of <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code>: extracts the code from the Stata chunks of an R Markdown or Quarto document into a do-file, recording each chunk’s header (label and options) as a Stata comment, and following <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code>’s <code>documentation</code> levels (<code>2</code> also carries the document text over as Stata comments). Chunks with <code>purl=FALSE</code> or <code>eval=FALSE</code> are skipped, including via option comments in any of the forms knitr accepts in Stata chunks (<code>#|</code>, <code>*|</code>, <code>//|</code>). (thanks <a href="https://github.com/davidaarmstrong" class="external-link">@davidaarmstrong</a> in <a href="https://github.com/Hemken/Statamarkdown/issues/39" class="external-link">#39</a>)</li>

@@ -9,7 +9,7 @@ Ordinarily this is run automatically when Statamarkdown is loaded."><meta name="
 
     <a class="navbar-brand me-2" href="../index.html">Statamarkdown</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.7.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,8 @@ Ordinarily this is run automatically when <span class="pkg">Statamarkdown</span>
 
 
 <dl><dt id="arg-message">message<a class="anchor" aria-label="anchor" href="#arg-message"></a></dt>
-<dd><p>(logical) Whether or not to print a message
-when Stata is found.</p></dd>
+<dd><p>(logical) Whether or not to print messages: where
+Stata was found, or that no Stata executable could be found.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -104,7 +104,7 @@ correct location yourself.</p>
 <span class="r-in"><span><span class="st">```</span></span></span>
 <span class="r-in"><span><span class="st">'</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="fu">Statamarkdown</span><span class="fu">::</span><span class="fu">find_stata</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nzchar</a></span><span class="op">(</span><span class="fu">Statamarkdown</span><span class="fu">::</span><span class="fu">find_stata</span><span class="op">(</span>message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"rmarkdown"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># To run this example, remove tempdir().</span></span></span>
 <span class="r-in"><span>  <span class="va">frmd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"test.Rmd"</span><span class="op">)</span></span></span>
@@ -127,7 +127,6 @@ correct location yourself.</p>
 <span class="r-in"><span>    <span class="fu">viewer</span><span class="op">(</span><span class="va">fhtml</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No Stata executable found.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
