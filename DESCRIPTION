@@ -10,7 +10,8 @@ Authors@R: c(
   )
 Description: Settings and functions to extend the 'knitr' 'Stata' engine.
 License: MIT + file LICENSE
-URL: https://github.com/Hemken/Statamarkdown/
+URL: https://github.com/Hemken/Statamarkdown/,
+    https://hemken.github.io/Statamarkdown/
 BugReports: https://github.com/Hemken/Statamarkdown/issues
 Imports: 
     knitr (>= 1.43),
