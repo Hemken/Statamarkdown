@@ -65,7 +65,7 @@ R*/
 
 /*' You can use the ***usual*** Markdown to mark up text.'*/
 "
-if (nzchar(Statamarkdown::find_stata()) &&
+if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
     requireNamespace("markdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
   fhtml <- file.path(tempdir(), "test.html")
