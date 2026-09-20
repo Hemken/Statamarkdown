@@ -26,11 +26,11 @@ test_that("purl_stata() extracts only the Stata chunks", {
 
 test_that("documentation = TRUE records the chunk headers as comments", {
   res <- purl_stata(text = indoc)
-  expect_true(any(grepl("* ---- stata first-Stata, collectcode=TRUE ----",
+  expect_true(any(grepl("*%% first-Stata, collectcode=TRUE ----",
                         res, fixed = TRUE)))
 
   res2 <- purl_stata(text = indoc, documentation = FALSE)
-  expect_false(any(grepl("* ----", res2, fixed = TRUE)))
+  expect_false(any(grepl("*%%", res2, fixed = TRUE)))
 })
 
 test_that("purl_stata() writes a do-file which is overwritten on re-run", {

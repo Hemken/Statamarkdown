@@ -27,7 +27,9 @@
 #'   do-file, following [knitr::purl()]: `0` (or `FALSE`) extracts the
 #'   code only; `1` (or `TRUE`, the default) precedes the code of each
 #'   chunk with a Stata comment giving the chunk's header (its label
-#'   and options); `2` also includes the document's text as Stata
+#'   and options), in the `*%% label ----` form knitr uses when it
+#'   tangles a script in another language; `2` also includes the
+#'   document's text as Stata
 #'   comments (the code of non-Stata chunks is not included).
 #'
 #' @return If a do-file is written, the path to the do-file, invisibly.
@@ -113,9 +115,14 @@ purl_stata <- function(input, output = NULL, text = NULL, documentation = 1L) {
     code <- parts$code
 
     if (doc >= 1L) {
+      # the chunk header, in the form knitr uses when it tangles a
+      # script in another language (see knitr's label_code_lang()):
+      # the engine is dropped, as the do-file implies it
+      src <- gsub("[[:space:]]*,?[[:space:]]*engine[[:space:]]*=[[:space:]]*(['\"])[^'\"]*\\1", "",
+                  sub("^[^[:space:],]+[[:space:],]*", "", header))
       # record the chunk options: the option comments become plain
       # Stata comments under the header line
-      code <- c(paste0("* ---- ", header, " ----"),
+      code <- c(paste0("*%% ", src, " ", strrep("-", max(4L, 60L - nchar(src)))),
                 if (length(opts))
                   paste("*", trimws(sub("^[[:space:]]*[^|]*[|]", "", opts))),
                 code)

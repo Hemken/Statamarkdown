@@ -20,7 +20,9 @@ place of a file.}
 do-file, following \code{\link[knitr:purl]{knitr::purl()}}: \code{0} (or \code{FALSE}) extracts the
 code only; \code{1} (or \code{TRUE}, the default) precedes the code of each
 chunk with a Stata comment giving the chunk's header (its label
-and options); \code{2} also includes the document's text as Stata
+and options), in the \verb{*\%\% label ----} form knitr uses when it
+tangles a script in another language; \code{2} also includes the
+document's text as Stata
 comments (the code of non-Stata chunks is not included).}
 }
 \value{
