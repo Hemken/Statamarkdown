@@ -1,7 +1,7 @@
 ---
 title: "Linking Code Blocks"
 author: "Doug Hemken"
-date: "Jul 2026"
+date: "Sep 2026"
 format: html
 vignette: >
   %\VignetteIndexEntry{Linking Code Blocks}
