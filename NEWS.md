@@ -1,5 +1,7 @@
 # Statamarkdown (development version)
 
+* `spinstata()` no longer needs `engine='stata'` in the chunk headers of a "do" file: code in a chunk is taken to be Stata code unless it is marked as R code with the `/*R ... R*/` markup, or the chunk header sets an `engine` option itself. With knitr >= 1.53, Stata is also used for code which is not preceded by a chunk header at all, in a document which has no chunks of R code.
+* `spinstata()` now calls `knitr::spin()` directly, instead of the modified copy of it which the package had carried since knitr 1.22. The copy was needed because `spin()` could not handle a script which is not valid R code, which was fixed in knitr 1.46 (thanks to Doug Hemken's report, yihui/knitr#1773). As a result `spinstata()` gains the features `spin()` has since acquired, including the `format = "qmd"` output format and the `# %%` and `#|` chunk delimiters, and the package now requires knitr >= 1.46.
 * `find_stata(message = FALSE)` is now silent when no Stata executable is found; previously the "No Stata executable found." message was printed whatever the value of `message`. The help file examples use this, so the reference pages of the pkgdown site, which is built without Stata, no longer end with that message.
 
 # Statamarkdown 1.0.0
