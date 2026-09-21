@@ -19,7 +19,9 @@ test_that("an Rmd file with a Stata chunk renders to HTML", {
                "```"),
              "test.Rmd")
 
-  outfile <- rmarkdown::render("test.Rmd", quiet = TRUE)
+  # mathjax = NULL avoids pandoc >= 3.11 warning about deprecated --mathjax flag
+  outfile <- rmarkdown::render("test.Rmd", quiet = TRUE,
+                               output_options = list(mathjax = NULL))
 
   expect_true(file.exists(outfile))
   html <- paste(readLines(outfile, warn = FALSE), collapse = "\n")
