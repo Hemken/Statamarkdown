@@ -14,7 +14,9 @@ spinstata(statafile, text = NULL, keep = FALSE, ...)
 
 \item{keep}{Whether to save intermediate files.}
 
-\item{...}{options passed to \code{knitr::spin}}
+\item{...}{options passed to \code{\link[knitr:spin]{knitr::spin()}}, for example
+\code{format} (the output format, such as \code{"Rmd"} or \code{"qmd"}), \code{knit},
+\code{report} or \code{envir}.}
 }
 \value{
 The path to the output file.
@@ -30,7 +32,7 @@ Markdown and HTML documents (or one of several other formats).
 \details{
 This function takes a Stata file containing special markup in
 its comments, and converts it into knitr's "spin" format.
-This is in turn sent to \code{knitr::spin}, and converted to
+This is in turn sent to \code{\link[knitr:spin]{knitr::spin()}}, and converted to
 Markdown and HTML (or one of several other formats).
 
 Special Markup:
@@ -40,6 +42,17 @@ Special Markup:
 \item \code{"/*R "} - Begin a chunk of R code, ends with \code{"R*/"}
 \item \code{"/** "} - Dropped from document, ends with \code{"*/*"}
 }
+
+Code in a chunk is taken to be Stata code, and the chunk header is
+given the \code{engine='stata'} chunk option, unless the code is marked
+as R code with the \code{"/*R ... R*/"} markup, or the chunk header sets
+an \code{engine} option itself.  Writing \code{engine='stata'} in the chunk
+headers of a "do" file is therefore no longer necessary, but it is
+still honoured.
+
+With knitr >= 1.53, Stata is also used for code which is not
+preceded by a chunk header at all, in a document which has no
+chunks of R code.
 }
 \examples{
 indoc <- "/*'
@@ -58,7 +71,7 @@ R*/
 
   /*' The report begins here. '*/
 
-  /*+  example1, engine='stata' +*/
+  /*+  example1 +*/
   sysuse auto
 /* Stata comment */
   summarize
@@ -86,7 +99,7 @@ if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
 }
 }
 \seealso{
-\link{Statamarkdown-package}
+\code{\link[knitr:spin]{knitr::spin()}}, \link{Statamarkdown-package}
 }
 \author{
 Doug Hemken

@@ -1,5 +1,9 @@
-# Statamarkdown (development version)
+# Statamarkdown 1.1.0
 
+* `purl_stata()` now writes each chunk's header in the `*%% label, options ----` form which knitr uses when it tangles a script in another language, instead of its own `* ---- label ----` form, so a do-file written by `purl_stata()` and one tangled by `knitr::purl()` look the same. The engine is dropped from the header, since the do-file implies it.
+* `purl_stata()` now uses `knitr::partition_chunk()` to split a chunk's option comments from its code, so they are recognised and parsed exactly as knitr does when the document is knitted: `*|` comments in a `stata` chunk and `#|` comments in a chunk using the older `engine='stata'` form. Values such as `purl: no` are therefore understood, and a `//|` line, which knitr does not treat as an option comment, is now kept as (Stata comment) code instead of being dropped.
+* `spinstata()` no longer needs `engine='stata'` in the chunk headers of a "do" file: code in a chunk is taken to be Stata code unless it is marked as R code with the `/*R ... R*/` markup, or the chunk header sets an `engine` option itself. With knitr >= 1.53, Stata is also used for code which is not preceded by a chunk header at all, in a document which has no chunks of R code.
+* `spinstata()` now calls `knitr::spin()` directly, instead of the modified copy of it which the package had carried since knitr 1.22. The copy was needed because `spin()` could not handle a script which is not valid R code, which was fixed in knitr 1.46 (yihui/knitr#1773). As a result `spinstata()` gains the features `spin()` has since acquired, including the `format = "qmd"` output format and the `# %%` and `#|` chunk delimiters, and the package now requires knitr >= 1.46.
 * `find_stata(message = FALSE)` is now silent when no Stata executable is found; previously the "No Stata executable found." message was printed whatever the value of `message`. The help file examples use this, so the reference pages of the pkgdown site, which is built without Stata, no longer end with that message.
 
 # Statamarkdown 1.0.0

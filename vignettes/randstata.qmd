@@ -1,7 +1,7 @@
 ---
 title: "Combining Stata and R"
 author: "Doug Hemken"
-date: "Jul 2026"
+date: "Sep 2026"
 format: html
 vignette: >
   %\VignetteIndexEntry{Combining Stata and R}

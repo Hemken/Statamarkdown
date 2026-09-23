@@ -26,11 +26,11 @@ test_that("purl_stata() extracts only the Stata chunks", {
 
 test_that("documentation = TRUE records the chunk headers as comments", {
   res <- purl_stata(text = indoc)
-  expect_true(any(grepl("* ---- stata first-Stata, collectcode=TRUE ----",
+  expect_true(any(grepl("*%% first-Stata, collectcode=TRUE ----",
                         res, fixed = TRUE)))
 
   res2 <- purl_stata(text = indoc, documentation = FALSE)
-  expect_false(any(grepl("* ----", res2, fixed = TRUE)))
+  expect_false(any(grepl("*%%", res2, fixed = TRUE)))
 })
 
 test_that("purl_stata() writes a do-file which is overwritten on re-run", {
@@ -138,7 +138,7 @@ test_that("invalid documentation values error", {
   expect_error(purl_stata(text = indoc, documentation = "yes"), "documentation")
 })
 
-test_that("Stata-style *| and //| option comments are stripped and honoured", {
+test_that("option comments are split from the code as knitr does", {
   doc <- paste(c(
     "```{stata}",
     "*| label: scatterplot",
@@ -148,28 +148,44 @@ test_that("Stata-style *| and //| option comments are stripped and honoured", {
     "```",
     "",
     "```{stata}",
-    "//| label: skipme",
-    "//| purl: false",
+    "*| purl: false",
     "display 1",
     "```",
     "",
     "```{stata}",
     "*| eval: false",
     "display 2",
+    "```",
+    "",
+    "```{r old-style, engine='stata'}",
+    "#| purl: false",
+    "display 3",
     "```"
   ), collapse = "\n")
 
   res <- purl_stata(text = doc)
   expect_true(any(grepl("scatter mpg weight", res, fixed = TRUE)))
   # option comment lines are not copied into the do-file as code ...
-  expect_false(any(grepl("^\\s*(\\*|#|//)\\|", res)))
+  expect_false(any(grepl("^[[:space:]]*(\\*|#)[|]", res)))
   # ... but are recorded as plain Stata comments
   expect_true(any(grepl('* fig-cap: "Mileage against weight"', res, fixed = TRUE)))
-  # purl: false and eval: false in option comments are honoured
+  # purl: false and eval: false in option comments are honoured, in a
+  # stata chunk (*|) and in the older engine='stata' form (#|)
   expect_false(any(grepl("display 1", res, fixed = TRUE)))
   expect_false(any(grepl("display 2", res, fixed = TRUE)))
+  expect_false(any(grepl("display 3", res, fixed = TRUE)))
 
   # with documentation = 0 the option comments are dropped entirely
   res0 <- purl_stata(text = doc, documentation = 0)
   expect_false(any(grepl("fig-cap", res0)))
+})
+
+test_that("a //| line is kept as code, as knitr treats it", {
+  # knitr only recognises *| (and #|) as option comments, so a //|
+  # line is Stata code, and a Stata comment at that
+  doc <- paste(c("```{stata}", "//| label: x", "sysuse auto", "```"),
+               collapse = "\n")
+
+  res <- purl_stata(text = doc, documentation = 0)
+  expect_identical(res, c("//| label: x", "sysuse auto"))
 })

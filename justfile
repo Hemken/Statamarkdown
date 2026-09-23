@@ -1,14 +1,14 @@
 build: docs
     Rscript -e "devtools::build()"
 check: docs
-    R -e "devtools::check()"
+    Rscript -e "devtools::check()"
 docs:
-    R -e "devtools::document()"
+    Rscript -e "devtools::document()"
 install: docs
-    R -e "devtools::install(build_vignettes = TRUE)"
+    Rscript -e "devtools::install(build_vignettes = TRUE)"
 vigs:
-    R -e "source('vignettes/render_vignette_source.R')"
+    Rscript -e "source('vignettes/render_vignette_source.R')"
 test:
-    R -e "devtools::test()"
+    Rscript -e "devtools::test()"
 dev:
-    R -e "pak::local_install_dev_deps()"
+    Rscript -e "pak::local_install_dev_deps()"

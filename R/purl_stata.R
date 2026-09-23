@@ -9,11 +9,13 @@
 #' is extracted when its header engine is `stata`, or when it uses the
 #' older `r` chunk form with an `engine = "stata"` option.  Chunks with
 #' the `purl = FALSE` or `eval = FALSE` options (either in the chunk
-#' header or in option comments) are skipped.  Option comments in all
-#' the forms knitr accepts in Stata chunks (`#|`, and the Stata
-#' comment-prefix forms `*|` and `//|`) are recognised: they are never
-#' copied into the do-file as code, but with `documentation >= 1` they
-#' are recorded as plain Stata comments below the chunk header line.
+#' header or in option comments) are skipped.  Option comments are
+#' split from the code by [knitr::partition_chunk()], so the forms
+#' knitr itself recognises are honoured: `*|` in a `stata` chunk and
+#' `#|` in a chunk using the older `engine='stata'` form.  They are
+#' never copied into the do-file as code, but with `documentation >= 1`
+#' they are recorded as plain Stata comments below the chunk header
+#' line.
 #'
 #' @param input A character string with the name of the input document.
 #' @param output A character string with the name of the do-file to
@@ -25,7 +27,9 @@
 #'   do-file, following [knitr::purl()]: `0` (or `FALSE`) extracts the
 #'   code only; `1` (or `TRUE`, the default) precedes the code of each
 #'   chunk with a Stata comment giving the chunk's header (its label
-#'   and options); `2` also includes the document's text as Stata
+#'   and options), in the `*%% label ----` form knitr uses when it
+#'   tangles a script in another language; `2` also includes the
+#'   document's text as Stata
 #'   comments (the code of non-Stata chunks is not included).
 #'
 #' @return If a do-file is written, the path to the do-file, invisibly.
@@ -100,22 +104,27 @@ purl_stata <- function(input, output = NULL, text = NULL, documentation = 1L) {
     if (grepl("(purl|eval)\\s*=\\s*F(ALSE)?\\b", header)) next
 
     code <- if (e - b > 1L) x[(b + 1L):(e - 1L)] else character()
-    # remove (and inspect) leading option comments: #| as in R chunks,
-    # and the comment-prefix forms knitr accepts in Stata chunks,
-    # *| and //|
-    opt_re <- "^\\s*(#|\\*|//)\\|"
-    opts <- character()
-    while (length(code) && grepl(opt_re, code[1L])) {
-      opts <- c(opts, code[1L])
-      code <- code[-1L]
-    }
-    if (any(grepl("(purl|eval)\\s*:\\s*false", opts))) next
+    # let knitr split the chunk's option comments from its code, so that
+    # they are recognised and parsed exactly as they are when the
+    # document is knitted: a "stata" fence takes "*|" comments, while
+    # the older engine='stata' form has an "r" fence, taking "#|"
+    parts <- knitr::partition_chunk(
+      if (grepl("^stata([ ,].*)?$", header)) "stata" else "r", code)
+    if (isFALSE(parts$options$purl) || isFALSE(parts$options$eval)) next
+    opts <- parts$src
+    code <- parts$code
 
     if (doc >= 1L) {
-      # record the chunk options: qmd-style option comments become
-      # plain Stata comments under the header line
-      code <- c(paste0("* ---- ", header, " ----"),
-                if (length(opts)) paste("*", trimws(sub(opt_re, "", opts))),
+      # the chunk header, in the form knitr uses when it tangles a
+      # script in another language (see knitr's label_code_lang()):
+      # the engine is dropped, as the do-file implies it
+      src <- gsub("[[:space:]]*,?[[:space:]]*engine[[:space:]]*=[[:space:]]*(['\"])[^'\"]*\\1", "",
+                  sub("^[^[:space:],]+[[:space:],]*", "", header))
+      # record the chunk options: the option comments become plain
+      # Stata comments under the header line
+      code <- c(paste0("*%% ", src, " ", strrep("-", max(4L, 60L - nchar(src)))),
+                if (length(opts))
+                  paste("*", trimws(sub("^[[:space:]]*[^|]*[|]", "", opts))),
                 code)
     }
     nstata <- nstata + 1L
