@@ -13,7 +13,8 @@ find_stata(message = TRUE)
 
 - message:
 
-  (logical) Whether or not to print a message when Stata is found.
+  (logical) Whether or not to print messages: where Stata was found, or
+  that no Stata executable could be found.
 
 ## Value
 
@@ -53,7 +54,7 @@ summarize price gpm
 ```
 '
 
-if (nzchar(Statamarkdown::find_stata()) &&
+if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
     requireNamespace("rmarkdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
   frmd <- file.path(tempdir(), "test.Rmd")
@@ -76,5 +77,4 @@ if (nzchar(Statamarkdown::find_stata()) &&
     viewer(fhtml)
   }
 }
-#> No Stata executable found.
 ````

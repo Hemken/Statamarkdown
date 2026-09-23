@@ -14,15 +14,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Hemken/Statamarkdown/blob/v1.0.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Hemken/Statamarkdown/blob/master/DESCRIPTION)
 
 Hemken D, Palmer T (2026). *Statamarkdown: 'Stata' Markdown*. R package
-version 1.0.0, <https://github.com/Hemken/Statamarkdown/>.
+version 1.1.0, <https://github.com/Hemken/Statamarkdown/>.
 
     @Manual{,
       title = {Statamarkdown: 'Stata' Markdown},
       author = {Doug Hemken and Tom Palmer},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.1.0},
       url = {https://github.com/Hemken/Statamarkdown/},
     }

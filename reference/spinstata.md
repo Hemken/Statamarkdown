@@ -28,7 +28,9 @@ spinstata(statafile, text = NULL, keep = FALSE, ...)
 - ...:
 
   options passed to
-  [`knitr::spin`](https://rdrr.io/pkg/knitr/man/spin.html)
+  [`knitr::spin()`](https://rdrr.io/pkg/knitr/man/spin.html), for
+  example `format` (the output format, such as `"Rmd"` or `"qmd"`),
+  `knit`, `report` or `envir`.
 
 ## Value
 
@@ -41,7 +43,7 @@ character string.
 
 This function takes a Stata file containing special markup in its
 comments, and converts it into knitr's "spin" format. This is in turn
-sent to [`knitr::spin`](https://rdrr.io/pkg/knitr/man/spin.html), and
+sent to [`knitr::spin()`](https://rdrr.io/pkg/knitr/man/spin.html), and
 converted to Markdown and HTML (or one of several other formats).
 
 Special Markup:
@@ -54,8 +56,18 @@ Special Markup:
 
 - `"/** "` - Dropped from document, ends with `"*/*"`
 
+Code in a chunk is taken to be Stata code, and the chunk header is given
+the `engine='stata'` chunk option, unless the code is marked as R code
+with the `"/*R ... R*/"` markup, or the chunk header sets an `engine`
+option itself. Writing `engine='stata'` in the chunk headers of a "do"
+file is therefore no longer necessary, but it is still honoured.
+
+With knitr \>= 1.53, Stata is also used for code which is not preceded
+by a chunk header at all, in a document which has no chunks of R code.
+
 ## See also
 
+[`knitr::spin()`](https://rdrr.io/pkg/knitr/man/spin.html),
 [Statamarkdown-package](https://hemken.github.io/Statamarkdown/reference/Statamarkdown-package.md)
 
 ## Author
@@ -81,14 +93,14 @@ R*/
 
   /*' The report begins here. '*/
 
-  /*+  example1, engine='stata' +*/
+  /*+  example1 +*/
   sysuse auto
 /* Stata comment */
   summarize
 
 /*' You can use the ***usual*** Markdown to mark up text.'*/
 "
-if (nzchar(Statamarkdown::find_stata()) &&
+if (nzchar(Statamarkdown::find_stata(message = FALSE)) &&
     requireNamespace("markdown", quietly = TRUE)) {
   # To run this example, remove tempdir().
   fhtml <- file.path(tempdir(), "test.html")
@@ -107,5 +119,4 @@ if (nzchar(Statamarkdown::find_stata()) &&
     viewer(fhtml)
   }
 }
-#> No Stata executable found.
 ```

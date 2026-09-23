@@ -11,7 +11,7 @@ to a Stata do-file."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Statamarkdown</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@ to a Stata do-file."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Extract Stata code from a dynamic document</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Hemken/Statamarkdown/blob/v1.0.0/R/purl_stata.R" class="external-link"><code>R/purl_stata.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Hemken/Statamarkdown/blob/master/R/purl_stata.R" class="external-link"><code>R/purl_stata.R</code></a></small>
       <div class="d-none name"><code>purl_stata.Rd</code></div>
     </div>
 
@@ -85,7 +85,9 @@ place of a file.</p></dd>
 do-file, following <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code>: <code>0</code> (or <code>FALSE</code>) extracts the
 code only; <code>1</code> (or <code>TRUE</code>, the default) precedes the code of each
 chunk with a Stata comment giving the chunk's header (its label
-and options); <code>2</code> also includes the document's text as Stata
+and options), in the <code>*%% label ----</code> form knitr uses when it
+tangles a script in another language; <code>2</code> also includes the
+document's text as Stata
 comments (the code of non-Stata chunks is not included).</p></dd>
 
 </dl></div>
@@ -102,11 +104,13 @@ chunks and fences of more than three backticks are handled.  A chunk
 is extracted when its header engine is <code>stata</code>, or when it uses the
 older <code>r</code> chunk form with an <code>engine = "stata"</code> option.  Chunks with
 the <code>purl = FALSE</code> or <code>eval = FALSE</code> options (either in the chunk
-header or in option comments) are skipped.  Option comments in all
-the forms knitr accepts in Stata chunks (<code>#|</code>, and the Stata
-comment-prefix forms <code>*|</code> and <code>//|</code>) are recognised: they are never
-copied into the do-file as code, but with <code>documentation &gt;= 1</code> they
-are recorded as plain Stata comments below the chunk header line.</p>
+header or in option comments) are skipped.  Option comments are
+split from the code by <code><a href="https://rdrr.io/pkg/knitr/man/partition_chunk.html" class="external-link">knitr::partition_chunk()</a></code>, so the forms
+knitr itself recognises are honoured: <code>*|</code> in a <code>stata</code> chunk and
+<code>#|</code> in a chunk using the older <code>engine='stata'</code> form.  They are
+never copied into the do-file as code, but with <code>documentation &gt;= 1</code>
+they are recorded as plain Stata comments below the chunk header
+line.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -132,12 +136,12 @@ are recorded as plain Stata comments below the chunk header line.</p>
 <span class="r-in"><span><span class="st">```</span></span></span>
 <span class="r-in"><span><span class="st">'</span></span></span>
 <span class="r-in"><span><span class="fu">purl_stata</span><span class="op">(</span>text <span class="op">=</span> <span class="va">indoc</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "* ---- stata first-Stata, collectcode=TRUE ----"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "sysuse auto, clear"                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "generate gpm = 1/mpg"                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] ""                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "* ---- stata second-Stata ----"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "regress price gpm"                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "*%% first-Stata, collectcode=TRUE -------------------------------"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "sysuse auto, clear"                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "generate gpm = 1/mpg"                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] ""                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "*%% second-Stata ------------------------------------------------"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "regress price gpm"                                                </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
