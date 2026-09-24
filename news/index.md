@@ -2,6 +2,8 @@
 
 ## Statamarkdown 1.1.0
 
+CRAN release: 2026-09-23
+
 - [`purl_stata()`](https://hemken.github.io/Statamarkdown/reference/purl_stata.md)
   now writes each chunk’s header in the `*%% label, options ----` form
   which knitr uses when it tangles a script in another language, instead

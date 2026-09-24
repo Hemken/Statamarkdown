@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Hemken/Statamarkdown/blob/v1.1.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Hemken/Statamarkdown/blob/master/DESCRIPTION)
 
 Hemken D, Palmer T (2026). *Statamarkdown: 'Stata' Markdown*. R package
 version 1.1.0, <https://github.com/Hemken/Statamarkdown/>.
